@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">arnold</string>
+    <string name="options">Επιλογές</string>
+    <string name="mySchedule">Το πρόγραμμα μου</string>
+    <string name="myBody">Το Σώμα μου</string>
+    <string name="myProgress">Η πρόοδος μου</string>
+    <string name="myGym">Το Γυμναστήριο μου</string>
+    <string name="myMusic">Η μουσική μου</string>
+    <string name="myFriends">Οι φίλοι μου</string>
 </resources>
