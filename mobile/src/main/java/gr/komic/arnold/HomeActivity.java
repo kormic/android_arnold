@@ -14,7 +14,7 @@ public class HomeActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_home);
 
         Toolbar mToolbar = findViewById(R.id.toolbar);
-
+        mToolbar.setTitle(R.string.options);
         mToolbar.inflateMenu(R.menu.more_menu);
 
 
