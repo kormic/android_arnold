@@ -13,5 +13,7 @@ public class BodyActivity extends AppCompatActivity {
 
         Toolbar mToolbar = findViewById(R.id.toolbar);
         mToolbar.inflateMenu(R.menu.more_menu);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
