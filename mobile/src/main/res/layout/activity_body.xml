@@ -13,15 +13,205 @@
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="@string/myBody"
-        app:popupTheme="@style/MoreMenu">
+        app:popupTheme="@style/MoreMenu"
+        app:navigationIcon="@drawable/ic_navigate_before_white_48dp">
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/body_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Body Activity"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:contentPadding="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Gender"
+                    android:textSize="22dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_weight="1.3"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="end|center_vertical"
+                    android:text="Male"
+                    android:textSize="20dp"
+                    android:background="@null"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:contentPadding="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Age"
+                    android:textSize="22dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_weight="1.3"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="end|center_vertical"
+                    android:text="35"
+                    android:textSize="20dp"
+                    android:background="@null"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:contentPadding="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Weight"
+                    android:textSize="22dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_weight="1.3"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="end|center_vertical"
+                    android:text="83kg"
+                    android:textSize="20dp"
+                    android:background="@null"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:contentPadding="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Height"
+                    android:textSize="22dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_weight="1.3"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="end|center_vertical"
+                    android:text="183cm"
+                    android:textSize="20dp"
+                    android:background="@null"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:contentPadding="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Workouts / week"
+                    android:textSize="22dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_weight="1.3"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="end|center_vertical"
+                    android:text="5"
+                    android:textSize="20dp"
+                    android:background="@null"
+                    />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        
+    </LinearLayout>
 
 
 
