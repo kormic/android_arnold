@@ -45,19 +45,18 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="@string/gender"
-                    android:textSize="22dp"
+                    android:textSize="20sp"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.4"
                     />
-                <EditText
+                <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
-                    android:gravity="end|center_vertical"
-                    android:text="Male"
-                    android:textSize="20dp"
-                    android:background="@null"
+                    android:layout_weight="0.6"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:entries="@array/genders_array"
                     />
 
             </LinearLayout>
@@ -82,19 +81,18 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="@string/age"
-                    android:textSize="22dp"
+                    android:textSize="20sp"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.4"
                     />
-                <EditText
-                    android:layout_width="0dp"
+                <Spinner
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="end|center_vertical"
-                    android:text="35"
-                    android:textSize="20dp"
-                    android:background="@null"
+                    android:textSize="20sp"
+                    android:entries="@array/age_array"
                     />
 
             </LinearLayout>
@@ -103,10 +101,10 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:contentPadding="10dp"
+            android:layout_marginTop="2sp"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="5sp"
+            app:contentPadding="10sp"
             >
 
             <LinearLayout
@@ -116,22 +114,21 @@
                 >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
                     android:text="@string/weight"
-                    android:textSize="22dp"
+                    android:textSize="20sp"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.4"
                     />
-                <EditText
-                    android:layout_width="0dp"
+                <Spinner
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
-                    android:gravity="end|center_vertical"
-                    android:text="83kg"
-                    android:textSize="20dp"
-                    android:background="@null"
+                    android:layout_weight="0.6"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:entries="@array/weight_array"
                     />
 
             </LinearLayout>
@@ -142,8 +139,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:contentPadding="10dp"
+            android:layout_marginEnd="5sp"
+            app:contentPadding="10sp"
             >
 
             <LinearLayout
@@ -153,22 +150,21 @@
                 >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
                     android:text="@string/height"
-                    android:textSize="22dp"
+                    android:textSize="20sp"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.4"
                     />
-                <EditText
-                    android:layout_width="0dp"
+                <Spinner
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
-                    android:gravity="end|center_vertical"
-                    android:text="183cm"
-                    android:textSize="20dp"
-                    android:background="@null"
+                    android:layout_weight="0.6"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:entries="@array/height_array"
                     />
 
             </LinearLayout>
@@ -177,10 +173,10 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:contentPadding="10dp"
+            android:layout_marginTop="2sp"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="5sp"
+            app:contentPadding="10sp"
             >
 
             <LinearLayout
@@ -190,22 +186,21 @@
                 >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
                     android:text="@string/workoutsPerWeek"
-                    android:textSize="22dp"
+                    android:textSize="20sp"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.4"
                     />
-                <EditText
-                    android:layout_width="0dp"
+                <Spinner
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
-                    android:gravity="end|center_vertical"
-                    android:text="5"
-                    android:textSize="20dp"
-                    android:background="@null"
+                    android:layout_weight="0.6"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:entries="@array/workouts_per_week_array"
                     />
 
             </LinearLayout>
