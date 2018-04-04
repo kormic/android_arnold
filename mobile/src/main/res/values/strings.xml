@@ -7,4 +7,9 @@
     <string name="myGym">Το Γυμναστήριο μου</string>
     <string name="myMusic">Η μουσική μου</string>
     <string name="myFriends">Οι φίλοι μου</string>
+    <string name="gender">Φύλο</string>
+    <string name="weight">Βάρος</string>
+    <string name="height">Ύψος</string>
+    <string name="age">Ηλικία</string>
+    <string name="workoutsPerWeek">Προπονήσεις / εβδομάδα</string>
 </resources>
