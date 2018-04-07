@@ -4,15 +4,15 @@ public class SpinnersHelper {
 
     public static String[] getGenderValues() {
         String[] genderValues = new String[2];
-        genderValues[0] = "Male";
-        genderValues[1] = "Female";
+        genderValues[0] = "Άντρας";
+        genderValues[1] = "Γυναίκα";
         return genderValues;
     }
 
     public static Integer[] getAgeValues() {
-        Integer[] ages = new Integer[88];
+        Integer[] ages = new Integer[100];
         for(int i = 0; i < ages.length; i++) {
-            ages[i] = 13 + i;
+            ages[i] = i + 1;
         }
         return ages;
     }
@@ -26,9 +26,9 @@ public class SpinnersHelper {
     }
 
     public static Integer[] getHeightValues() {
-        Integer[] heights = new Integer[121];
+        Integer[] heights = new Integer[161];
         for(int i = 0; i < heights.length; i++) {
-            heights[i] = 130 + i;
+            heights[i] = 90 + i;
         }
         return heights;
     }
