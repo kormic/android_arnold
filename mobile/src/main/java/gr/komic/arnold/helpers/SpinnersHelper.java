@@ -18,17 +18,17 @@ public class SpinnersHelper {
     }
 
     public static Integer[] getWeightValues() {
-        Integer[] weights = new Integer[161];
+        Integer[] weights = new Integer[200];
         for(int i = 0; i < weights.length; i++) {
-            weights[i] = 40 + i;
+            weights[i] = i + 1;
         }
         return weights;
     }
 
     public static Integer[] getHeightValues() {
-        Integer[] heights = new Integer[161];
+        Integer[] heights = new Integer[250];
         for(int i = 0; i < heights.length; i++) {
-            heights[i] = 90 + i;
+            heights[i] = i + 1;
         }
         return heights;
     }

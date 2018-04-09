@@ -10,9 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
+import gr.komic.arnold.Models.UserBodyInfo;
 import gr.komic.arnold.helpers.SpinnersHelper;
 
 public class BodyActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    public static final String BODY_INFO = "bodyInfo";
 
     Spinner genderSpinner;
     Spinner ageSpinner;
@@ -22,10 +27,8 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
     TextView bmiResult;
     TextView bmiResultText;
     TextView idealBMI;
-    int age = 25;
-    double height;
-    int weight;
     double bmi;
+    private UserBodyInfo userBodyInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,17 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
         mToolbar.inflateMenu(R.menu.more_menu);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        this.userBodyInfo = new UserBodyInfo();
+
         this.bmiResult = findViewById(R.id.bmi_result);
         this.bmiResultText = findViewById(R.id.bmi_result_text);
         this.idealBMI = findViewById(R.id.ideal_bmi);
+
         this.setupSpinners();
         this.setBMIResultText();
         this.setIdealBMI();
+
 
     }
 
@@ -50,35 +58,37 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<String> genderSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_center, SpinnersHelper.getGenderValues());
         genderSpinner.setAdapter(genderSpinnerAdapter);
         genderSpinner.setOnItemSelectedListener(this);
-        genderSpinner.setSelection(0);
 
         ageSpinner = findViewById(R.id.age_spinner);
         ArrayAdapter<Integer> ageSpinnerAdapter = new ArrayAdapter<Integer>(this, R.layout.spinner_text_center, SpinnersHelper.getAgeValues());
         ageSpinner.setAdapter(ageSpinnerAdapter);
         ageSpinner.setOnItemSelectedListener(this);
-        ageSpinner.setSelection(24);
 
         weightSpinner = findViewById(R.id.weight_spinner);
         ArrayAdapter<Integer> weightSpinnerAdapter = new ArrayAdapter<Integer>(this, R.layout.spinner_text_center, SpinnersHelper.getWeightValues());
         weightSpinner.setAdapter(weightSpinnerAdapter);
         weightSpinner.setOnItemSelectedListener(this);
-        weightSpinner.setSelection(35);
 
         heightSpinner = findViewById(R.id.height_spinner);
         ArrayAdapter<Integer> heightSpinnerAdapter = new ArrayAdapter<Integer>(this, R.layout.spinner_text_center, SpinnersHelper.getHeightValues());
         heightSpinner.setAdapter(heightSpinnerAdapter);
         heightSpinner.setOnItemSelectedListener(this);
-        heightSpinner.setSelection(90);
 
         workoutsPerWeekSpinner = findViewById(R.id.workouts_per_week_spinner);
         ArrayAdapter<Integer> workoutsPerWeekSpinnerAdapter = new ArrayAdapter<Integer>(this, R.layout.spinner_text_center, SpinnersHelper.getWorkoutsPerWeekValues());
         workoutsPerWeekSpinner.setAdapter(workoutsPerWeekSpinnerAdapter);
         workoutsPerWeekSpinner.setOnItemSelectedListener(this);
-        workoutsPerWeekSpinner.setSelection(3);
+
+        genderSpinner.setSelection(Arrays.asList(SpinnersHelper.getGenderValues()).indexOf(this.userBodyInfo.getGender()));
+        ageSpinner.setSelection(this.userBodyInfo.getAge() - 1);
+        weightSpinner.setSelection(this.userBodyInfo.getWeight() - 1);
+        heightSpinner.setSelection((this.userBodyInfo.getHeight()) - 1);
+        workoutsPerWeekSpinner.setSelection(this.userBodyInfo.getWorkoutsPerWeek() - 1);
     }
 
     private void calculateBMI() {
-        this.bmi = this.weight / (this.height * this.height);
+        double height = this.userBodyInfo.getHeight() / 100.0;
+        this.bmi = this.userBodyInfo.getWeight() / (height * height);
         this.bmiResult.setText(String.format("%.2f",this.bmi));
         this.setBMIResultText();
     }
@@ -100,17 +110,17 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void setIdealBMI() {
-        if(this.age >= 19 && this.age < 24) {
+        if(this.userBodyInfo.getAge() >= 19 && this.userBodyInfo.getAge() < 24) {
             this.idealBMI.setText("19-24");
-        }else if(this.age > 24 && this.age <= 34) {
+        }else if(this.userBodyInfo.getAge() > 24 && this.userBodyInfo.getAge() <= 34) {
             this.idealBMI.setText("20-25");
-        }else if(this.age >= 35 && this.age <= 44) {
+        }else if(this.userBodyInfo.getAge() >= 35 && this.userBodyInfo.getAge() <= 44) {
             this.idealBMI.setText("21-26");
-        }else if(this.age >=45 && this.age <=54) {
+        }else if(this.userBodyInfo.getAge() >=45 && this.userBodyInfo.getAge() <=54) {
             this.idealBMI.setText("22-27");
-        }else if(this.age >=55 && this.age <=64) {
+        }else if(this.userBodyInfo.getAge() >=55 && this.userBodyInfo.getAge() <=64) {
             this.idealBMI.setText("23-28");
-        }else if(this.age >= 65) {
+        }else if(this.userBodyInfo.getAge() >= 65) {
             this.idealBMI.setText("24-29");
         }
     }
@@ -119,23 +129,24 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch (adapterView.getId()) {
             case R.id.gender_spinner:
+                this.userBodyInfo.setGender(SpinnersHelper.getGenderValues()[i]);
                 this.calculateBMI();
                 break;
             case R.id.age_spinner:
-                this.age = i;
+                this.userBodyInfo.setAge(SpinnersHelper.getAgeValues()[i]);
                 this.calculateBMI();
                 this.setIdealBMI();
                 break;
             case R.id.weight_spinner:
-                this.weight = i + 40;
+                this.userBodyInfo.setWeight(SpinnersHelper.getWeightValues()[i]);
                 this.calculateBMI();
                 break;
             case R.id.height_spinner:
-                this.height = ((i + 90) / 100.00);
+                this.userBodyInfo.setHeight(SpinnersHelper.getHeightValues()[i]);
                 this.calculateBMI();
                 break;
             default:
-                Log.d("Workouts ", String.valueOf(i + 1));
+                Log.d("Workouts ", String.valueOf(i));
         }
     }
 
