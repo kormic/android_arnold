@@ -24,8 +24,13 @@ public class HomeActivity extends AppCompatActivity {
         Log.d("Navigate to view: ",String.valueOf(view.getId()));
         switch (view.getId()) {
             case R.id.myBody_button:
-                Intent intent = new Intent(this, BodyActivity.class);
-                startActivity(intent);
+                Intent intentBody = new Intent(this, BodyActivity.class);
+                startActivity(intentBody);
+                break;
+            case R.id.myGym_Button:
+                Intent intentGym = new Intent(this, MyGymActivity.class);
+                startActivity(intentGym);
+                break;
         }
     }
 }
