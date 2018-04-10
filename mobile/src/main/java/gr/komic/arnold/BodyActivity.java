@@ -1,5 +1,6 @@
 package gr.komic.arnold;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,14 +11,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.Arrays;
 
 import gr.komic.arnold.Models.UserBodyInfo;
+import gr.komic.arnold.helpers.Constants;
 import gr.komic.arnold.helpers.SpinnersHelper;
 
 public class BodyActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    public static final String BODY_INFO = "bodyInfo";
+    Gson gson = new Gson();
+    String userInfoJson;
+    SharedPreferences mSharedPrefs;
+    SharedPreferences.Editor mEditor;
 
     Spinner genderSpinner;
     Spinner ageSpinner;
@@ -27,8 +34,10 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
     TextView bmiResult;
     TextView bmiResultText;
     TextView idealBMI;
-    double bmi;
+
+    private double bmi;
     private UserBodyInfo userBodyInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +49,7 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        this.userBodyInfo = new UserBodyInfo();
+        this.restoreUserInfo();
 
         this.bmiResult = findViewById(R.id.bmi_result);
         this.bmiResultText = findViewById(R.id.bmi_result_text);
@@ -49,8 +58,18 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
         this.setupSpinners();
         this.setBMIResultText();
         this.setIdealBMI();
+    }
 
+    private void restoreUserInfo() {
+        this.mSharedPrefs = this.getSharedPreferences(Constants.BODY_INFO, MODE_PRIVATE);
+        this.mEditor = mSharedPrefs.edit();
 
+        String storedUserInfoJson = this.mSharedPrefs.getString(Constants.USER_INFO_OBJECT, null);
+        if(storedUserInfoJson != null) {
+            this.userBodyInfo = gson.fromJson(storedUserInfoJson, UserBodyInfo.class);
+        }else {
+            this.userBodyInfo = new UserBodyInfo();
+        }
     }
 
     private void setupSpinners() {
@@ -86,42 +105,49 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
         workoutsPerWeekSpinner.setSelection(this.userBodyInfo.getWorkoutsPerWeek() - 1);
     }
 
+    private void storeUserBodyInfo() {
+        this.userInfoJson = gson.toJson(this.userBodyInfo);
+        this.mEditor.putString(Constants.USER_INFO_OBJECT, this.userInfoJson);
+        this.mEditor.commit();
+    }
+
     private void calculateBMI() {
         double height = this.userBodyInfo.getHeight() / 100.0;
         this.bmi = this.userBodyInfo.getWeight() / (height * height);
         this.bmiResult.setText(String.format("%.2f",this.bmi));
         this.setBMIResultText();
+        this.storeUserBodyInfo();
     }
 
     private void setBMIResultText() {
         if(this.bmi < 18.5) {
-            this.bmiResultText.setText("Ελλιποβαρής");
+            this.bmiResultText.setText(R.string.lessWeight);
             this.bmiResultText.setBackgroundColor(getResources().getColor(R.color.colorWarning));
         }else if(this.bmi < 25){
-            this.bmiResultText.setText("Κανονικό βάρος");
+            this.bmiResultText.setText(R.string.normalWeight);
             this.bmiResultText.setBackgroundColor(getResources().getColor(R.color.colorSuccess));
         }else if (this.bmi < 30){
-            this.bmiResultText.setText("Υπέρβαρος");
+            this.bmiResultText.setText(R.string.overweight);
             this.bmiResultText.setBackgroundColor(getResources().getColor(R.color.colorWarning));
         }else {
-            this.bmiResultText.setText("Παχυσαρκία");
+            this.bmiResultText.setText(R.string.obese);
             this.bmiResultText.setBackgroundColor(getResources().getColor(R.color.colorWarning));
         }
     }
 
     private void setIdealBMI() {
         if(this.userBodyInfo.getAge() >= 19 && this.userBodyInfo.getAge() < 24) {
-            this.idealBMI.setText("19-24");
+            this.idealBMI.setText(R.string.idealBMI1924);
         }else if(this.userBodyInfo.getAge() > 24 && this.userBodyInfo.getAge() <= 34) {
-            this.idealBMI.setText("20-25");
+            this.idealBMI.setText(R.string.idealBMI2025);
         }else if(this.userBodyInfo.getAge() >= 35 && this.userBodyInfo.getAge() <= 44) {
-            this.idealBMI.setText("21-26");
+            this.idealBMI.setText(R.string.idealBMI2126);
         }else if(this.userBodyInfo.getAge() >=45 && this.userBodyInfo.getAge() <=54) {
-            this.idealBMI.setText("22-27");
+            this.idealBMI.setText(R.string.idealBMI2227);
         }else if(this.userBodyInfo.getAge() >=55 && this.userBodyInfo.getAge() <=64) {
-            this.idealBMI.setText("23-28");
+            this.idealBMI.setText(R.string.idealBMI2328);
         }else if(this.userBodyInfo.getAge() >= 65) {
-            this.idealBMI.setText("24-29");
+            this.idealBMI.setText(R.string.idealBMI2429);
         }
     }
 
@@ -146,7 +172,8 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
                 this.calculateBMI();
                 break;
             default:
-                Log.d("Workouts ", String.valueOf(i));
+                this.userBodyInfo.setWorkoutsPerWeek(SpinnersHelper.getWorkoutsPerWeekValues()[i]);
+                this.storeUserBodyInfo();
         }
     }
 
