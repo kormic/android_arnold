@@ -20,7 +20,7 @@
     <style name="MoreMenu" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColorPrimary">@color/menu_item_states</item>
-        <item name="colorControlHighlight">@color/controlHighlight</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
 </resources>

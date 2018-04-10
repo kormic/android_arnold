@@ -7,4 +7,19 @@
     <string name="myGym">Το Γυμναστήριο μου</string>
     <string name="myMusic">Η μουσική μου</string>
     <string name="myFriends">Οι φίλοι μου</string>
+    <string name="gender">Φύλο</string>
+    <string name="weight">Βάρος</string>
+    <string name="height">Ύψος</string>
+    <string name="age">Ηλικία</string>
+    <string name="workoutsPerWeek">Προπονήσεις / εβδομάδα</string>
+    <string name="lessWeight">Ελλιποβαρής</string>
+    <string name="normalWeight">"Κανονικό βάρος"</string>
+    <string name="overweight">"Υπέρβαρος/η"</string>
+    <string name="obese">"Παχυσαρκία"</string>
+    <string name="idealBMI1924">"19-24"</string>
+    <string name="idealBMI2025">"20-25"</string>
+    <string name="idealBMI2126">"21-26"</string>
+    <string name="idealBMI2227">"22-27"</string>
+    <string name="idealBMI2328">"23-28"</string>
+    <string name="idealBMI2429">"24-29"</string>
 </resources>
