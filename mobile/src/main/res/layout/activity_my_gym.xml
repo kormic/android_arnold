@@ -6,11 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".MyGymActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_navigate_before_white_48dp"
+        app:popupTheme="@style/MoreMenu"
+        app:title="@string/myGym">
+
+    </android.support.v7.widget.Toolbar>
+
     <fragment
         android:id="@+id/place_autocomplete_fragment"
-        android:layout_width="match_parent"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         />
 
 </android.support.constraint.ConstraintLayout>

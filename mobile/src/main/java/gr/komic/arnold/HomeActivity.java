@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import gr.komic.arnold.helpers.Constants;
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override
@@ -21,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void navigate(View view) {
-        Log.d("Navigate to view: ",String.valueOf(view.getId()));
+        Log.d(Constants.HOME_ACTIVITY, String.valueOf(view.getId()));
         switch (view.getId()) {
             case R.id.myBody_button:
                 Intent intentBody = new Intent(this, BodyActivity.class);
