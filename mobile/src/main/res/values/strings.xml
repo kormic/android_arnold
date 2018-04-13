@@ -22,4 +22,20 @@
     <string name="idealBMI2227">"22-27"</string>
     <string name="idealBMI2328">"23-28"</string>
     <string name="idealBMI2429">"24-29"</string>
+    <string name="info">Πληροφορίες</string>
+    <string name="subscription">Συνδρομή</string>
+    <string name="my_gym_name_label">Όνομα</string>
+    <string name="my_gym_address_label">Διεύθυνση</string>
+    <string name="my_gym_address_hint">διεύθυνση γυμναστηρίου</string>
+    <string name="my_gym_name_hint">όνομα γυμναστηρίου</string>
+    <string name="my_gym_phone_label">Τηλέφωνο</string>
+    <string name="my_gym_phone_hint">τηλέφωνο γυμναστηρίου</string>
+    <string name="my_gym_rating_label">Βαθμολογία</string>
+    <string name="my_gym_rating_hint">βαθμολογία γυμναστηρίου</string>
+    <string name="my_gym_website_label">Ιστοσελίδα</string>
+    <string name="my_gym_website_hint">ιστοσελίδα γυμναστηρίου</string>
+    <string name="my_gym_subscription_label">Συνδρομή</string>
+    <string name="my_gym_subscription_hint">ποσό</string>
+    <string name="my_gym_registration_label">Εγγραφή</string>
+    <string name="my_gym_registration_hint">ημερομηνία</string>
 </resources>

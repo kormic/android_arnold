@@ -99,7 +99,7 @@ app:rowCount="3">
     app:layout_columnWeight="1">
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/myGym_Button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="20dp"
@@ -108,7 +108,8 @@ app:rowCount="3">
         android:text="@string/myGym"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:drawableTop="@drawable/ic_fitness_center_white_18dp" />
+        android:drawableTop="@drawable/ic_fitness_center_white_18dp"
+        android:onClick="navigate" />
 
 </android.support.v7.widget.CardView>
 

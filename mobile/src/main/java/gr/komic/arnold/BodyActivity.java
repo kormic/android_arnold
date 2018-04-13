@@ -179,6 +179,6 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        Log.d("Nothing selected ", "---");
+        Log.d( Constants.BODY_ACTIVITY, "---");
     }
 }
