@@ -77,23 +77,16 @@ public class MyGymActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onPlaceSelected(Place place) {
-        // TODO: Get info about the selected place.
-        Log.i("OH JESUS", "Place: " + place.getName());
-        Log.i("OH 2", "Address " + place.getAddress());
-        Log.i("OH 3", "PhoneNumber " + place.getPhoneNumber());
-        Log.i("OH 4", "Rating " + place.getRating());
-        Log.i("OH 5", "Website " + place.getWebsiteUri());
-        this.mGymNameEditext.setText(place.getName());
-        this.mGymAddressEditText.setText(place.getAddress());
-        this.mGymPhoneEditText.setText(place.getPhoneNumber());
+        this.mGymNameEditext.setText(place.getName() != null ? place.getName(): "Not available");
+        this.mGymAddressEditText.setText(place.getAddress() != null ? place.getAddress(): "Not available");
+        this.mGymPhoneEditText.setText(place.getPhoneNumber() != null ? place.getPhoneNumber(): "Not available");
         this.mGymRatingEditText.setText(String.valueOf(place.getRating()));
-        this.mGymWebsiteEditText.setText(place.getWebsiteUri().toString());
+        this.mGymWebsiteEditText.setText(place.getWebsiteUri() != null ? place.getWebsiteUri().toString() : "Not available");
     }
 
     @Override
     public void onError(Status status) {
         // TODO: Handle the error.
-        Log.i("OH MY GOD!", "An error occurred: " + status);
     }
 
     private void setupViews() {
