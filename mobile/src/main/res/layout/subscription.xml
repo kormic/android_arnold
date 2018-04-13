@@ -92,7 +92,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:hint="ποσό"
-                android:layout_weight="1.1"/>
+                android:layout_weight="1.1"
+                android:inputType="numberDecimal"/>
 
             <TextView
                 android:layout_width="0sp"

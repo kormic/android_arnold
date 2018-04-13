@@ -24,7 +24,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
-public class MyGymActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class MyGymActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, PlaceSelectionListener {
 
     private GoogleApiClient mGoogleApiClient;
     PlaceAutocompleteFragment autocompleteFragment;
@@ -75,6 +75,27 @@ public class MyGymActivity extends AppCompatActivity implements GoogleApiClient.
         this.mGymRegistrationTextView.setText(dateString);
     }
 
+    @Override
+    public void onPlaceSelected(Place place) {
+        // TODO: Get info about the selected place.
+        Log.i("OH JESUS", "Place: " + place.getName());
+        Log.i("OH 2", "Address " + place.getAddress());
+        Log.i("OH 3", "PhoneNumber " + place.getPhoneNumber());
+        Log.i("OH 4", "Rating " + place.getRating());
+        Log.i("OH 5", "Website " + place.getWebsiteUri());
+        this.mGymNameEditext.setText(place.getName());
+        this.mGymAddressEditText.setText(place.getAddress());
+        this.mGymPhoneEditText.setText(place.getPhoneNumber());
+        this.mGymRatingEditText.setText(String.valueOf(place.getRating()));
+        this.mGymWebsiteEditText.setText(place.getWebsiteUri().toString());
+    }
+
+    @Override
+    public void onError(Status status) {
+        // TODO: Handle the error.
+        Log.i("OH MY GOD!", "An error occurred: " + status);
+    }
+
     private void setupViews() {
         this.mGymNameEditext = findViewById(R.id.my_gym_name);
         this.mGymAddressEditText = findViewById(R.id.my_gym_address);
@@ -100,23 +121,7 @@ public class MyGymActivity extends AppCompatActivity implements GoogleApiClient.
         this.autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.i("OH JESUS", "Place: " + place.getName());
-                Log.i("OH 2", "Address " + place.getAddress());
-                Log.i("OH 3", "PhoneNumber " + place.getPhoneNumber());
-                Log.i("OH 4", "Rating " + place.getRating());
-                Log.i("OH 5", "Website " + place.getWebsiteUri());
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("OH MY GOD!", "An error occurred: " + status);
-            }
-        });
+        autocompleteFragment.setOnPlaceSelectedListener(this);
     }
 
 }
