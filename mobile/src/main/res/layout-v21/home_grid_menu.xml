@@ -75,7 +75,7 @@
         app:layout_columnWeight="1">
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/myProgress_Button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="20dp"
@@ -84,7 +84,8 @@
             android:text="@string/myProgress"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:drawableTop="@drawable/ic_trending_up_white_18dp" />
+            android:drawableTop="@drawable/ic_trending_up_white_18dp"
+            android:onClick="navigate" />
 
     </android.support.v7.widget.CardView>
 
