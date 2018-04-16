@@ -1,6 +1,7 @@
 package gr.komic.arnold.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,8 +35,17 @@ public class MyProgressRecyclerViewAdapter extends RecyclerView.Adapter<MyProgre
 
     @Override
     public void onBindViewHolder(@NonNull MyProgressViewHolder holder, final int position) {
-        holder.progressCardItemStatusImageView.setImageDrawable(this.mContext.getResources().getDrawable(R.drawable.logo));
-        holder.progressCardItemStatusImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        if(position == 2 || position == 3){
+            holder.progressCardItemStatusImageView.setImageDrawable(this.mContext.getResources().getDrawable(R.drawable.ic_trending_up_white_24dp));
+            holder.progressCardItemStatusImageViewWrapper.setBackgroundColor(Color.GREEN);
+        }else if (position == 5 || position == 7) {
+            holder.progressCardItemStatusImageView.setImageDrawable(this.mContext.getResources().getDrawable(R.drawable.ic_trending_down_white_24dp));
+            holder.progressCardItemStatusImageViewWrapper.setBackgroundColor(Color.RED);
+        }else {
+            holder.progressCardItemStatusImageView.setImageDrawable(this.mContext.getResources().getDrawable(R.drawable.ic_trending_flat_white_24dp));
+            holder.progressCardItemStatusImageViewWrapper.setBackgroundColor(Color.BLUE);
+        }
+//        holder.progressCardItemStatusImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         holder.progressCardItemDateTextView.setText(this.mTempArray.get(position));
         holder.progressCardParent.setOnClickListener(new View.OnClickListener() {
             @Override
