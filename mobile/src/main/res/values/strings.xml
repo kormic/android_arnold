@@ -38,4 +38,6 @@
     <string name="my_gym_subscription_hint">ποσό</string>
     <string name="my_gym_registration_label">Εγγραφή</string>
     <string name="my_gym_registration_hint">ημερομηνία</string>
+    <string name="title_activity_add_progress">AddProgressActivity</string>
+    <string name="add_progress">Προσθήκη Προόδου</string>
 </resources>
