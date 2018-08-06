@@ -33,6 +33,10 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intentGym = new Intent(this, MyGymActivity.class);
                 startActivity(intentGym);
                 break;
+            case R.id.myProgress_Button:
+                Intent intentProgress = new Intent(this, MyProgressActivity.class);
+                startActivity(intentProgress);
+                break;
         }
     }
 }

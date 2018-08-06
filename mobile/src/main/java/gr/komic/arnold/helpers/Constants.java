@@ -10,4 +10,5 @@ public class Constants {
     public static final String HOME_ACTIVITY = "HomeActivity";
     public static final String BODY_ACTIVITY = "BodyActivity";
     public static final String MYGYM_ACTIVITY = "MyGymActivity";
+    public static final String ADD_PROGRESS_ACTIVITY = "AddProgressActivity";
 }

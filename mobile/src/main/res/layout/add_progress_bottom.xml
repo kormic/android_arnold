@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginTop="5sp"
+        app:contentPadding="10sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:text="@string/gender"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="right" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginTop="5sp"
+        app:contentPadding="10sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:text="@string/height"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="right" />
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="@string/centimeters"
+                android:textSize="18sp"
+                android:gravity="right" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginTop="5sp"
+        app:contentPadding="10sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:text="@string/neck"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/neck"
+                android:inputType="number"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="right" />
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="@string/centimeters"
+                android:textSize="18sp"
+                android:gravity="right" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginTop="5sp"
+        app:contentPadding="10sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:text="@string/waist"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/waist"
+                android:inputType="number"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="right" />
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="@string/centimeters"
+                android:textSize="18sp"
+                android:gravity="right" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/hips_section"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginTop="5sp"
+        app:contentPadding="10sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:text="@string/hips"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/hips"
+                android:inputType="number"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="right" />
+
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="@string/centimeters"
+                android:textSize="18sp"
+                android:gravity="right" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginTop="5sp"
+        android:padding="10sp"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:text="@string/fat_percentage"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/fat_percentage"
+            android:inputType="numberDecimal"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical|end"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="@string/percentage"
+            android:textSize="18sp"
+            android:gravity="right" />
+    </LinearLayout>
+</LinearLayout>
