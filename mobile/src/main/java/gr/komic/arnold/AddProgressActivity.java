@@ -61,7 +61,7 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
         String today = DateService.getTodayToString("dd/MM/yyyy");
 
         this.todayTextView.setText(today);
-        this.heightTextView.setText(String.valueOf(this.userService.restoreUserInfo(this).getHeight()) + " cm");
+        this.heightTextView.setText(String.valueOf(this.userService.restoreUserInfo(this).getHeight()));
         genderTextView.setText(this.userService.restoreUserInfo(this).getGender());
     }
 
