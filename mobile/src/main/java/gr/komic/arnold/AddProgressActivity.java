@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import gr.komic.arnold.Infrastructure.DateService;
 import gr.komic.arnold.Models.Progress;
@@ -140,18 +141,20 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
 
     private void insertProgress() {
         Progress progress;
-        if(this.neckEditText.getText().length() > 0 && this.waistEditText.getText().length() > 0) {
+        if(!this.fatPercentage.getText().toString().isEmpty() && (this.neckEditText.getText().length() > 0 && this.waistEditText.getText().length() > 0)) {
             if(this.userService.restoreUserInfo(this).getGender().equals("Γυναίκα") && this.hipsEditText.getText().length() > 0) {
                 progress = new Progress(this.today, Float.parseFloat(this.neckEditText.getText().toString()), Float.parseFloat(this.waistEditText.getText().toString()), Float.parseFloat(this.hipsEditText.getText().toString()));
                 progress = this.progressDataSource.insert(progress);
                 Log.i(TAG, "insertProgress: Progress added with id: " + progress.getId());
+                finish();
             }else if (this.userService.restoreUserInfo(this).getGender().equals("Άνδρας")) {
                 progress = new Progress(this.today, Float.parseFloat(this.neckEditText.getText().toString()), Float.parseFloat(this.waistEditText.getText().toString()), 0);
                 progress = this.progressDataSource.insert(progress);
                 Log.i(TAG, "insertProgress: Progress added with id: " + progress.getId());
+                finish();
             }
         }else {
-            Log.i(TAG, "insertProgress: Fill all the values");
+            Toast.makeText(this, "Συμπληρώστε όλα τα πεδία", Toast.LENGTH_SHORT).show();
         }
     }
 }
