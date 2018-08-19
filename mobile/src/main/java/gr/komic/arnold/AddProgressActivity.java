@@ -73,7 +73,7 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
         this.hipsEditText = findViewById(R.id.hips);
         this.fatPercentage = findViewById(R.id.fat_percentage);
         genderTextView = findViewById(R.id.gender);
-        if(this.userService.restoreUserInfo(this).getGender().equals("Γυναίκα")) {
+        if(this.userService.restoreUserInfo(this).getGender().equals(getString(R.string.woman))) {
             this.hipsCardView = findViewById(R.id.hips_section);
             this.hipsCardView.setVisibility(View.VISIBLE);
         }
@@ -116,7 +116,7 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
     private void calculateFatPercentage() {
         if (this.neckEditText.getText().length() > 0 && this.waistEditText.getText().length() > 0) {
             double percentage;
-            if (this.userService.restoreUserInfo(this).getGender().equals("Γυναίκα") && this.hipsEditText.getText().length() > 0) {
+            if (this.userService.restoreUserInfo(this).getGender().equals(getString(R.string.woman)) && this.hipsEditText.getText().length() > 0) {
                 percentage = this.addProgressService.calculateFatPercentageForWomen(Integer.parseInt(
                                 this.waistEditText.getText().toString()),
                                 Integer.parseInt(this.hipsEditText.getText().toString()),
@@ -141,12 +141,12 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
     private void insertProgress() {
         Progress progress;
         if(!this.fatPercentage.getText().toString().isEmpty() && (this.neckEditText.getText().length() > 0 && this.waistEditText.getText().length() > 0)) {
-            if(this.userService.restoreUserInfo(this).getGender().equals("Γυναίκα") && this.hipsEditText.getText().length() > 0) {
+            if(this.userService.restoreUserInfo(this).getGender().equals(getString(R.string.woman)) && this.hipsEditText.getText().length() > 0) {
                 progress = new Progress(this.today, Float.parseFloat(this.neckEditText.getText().toString()), Float.parseFloat(this.waistEditText.getText().toString()), Float.parseFloat(this.hipsEditText.getText().toString()));
                 progress = this.progressDataSource.insert(progress);
                 Log.i(TAG, "insertProgress: Progress added with id: " + progress.getId());
                 finish();
-            }else if (this.userService.restoreUserInfo(this).getGender().equals("Άνδρας")) {
+            }else if (this.userService.restoreUserInfo(this).getGender().equals(getString(R.string.man))) {
                 progress = new Progress(this.today, Float.parseFloat(this.neckEditText.getText().toString()), Float.parseFloat(this.waistEditText.getText().toString()), 0);
                 progress = this.progressDataSource.insert(progress);
                 Log.i(TAG, "insertProgress: Progress added with id: " + progress.getId());

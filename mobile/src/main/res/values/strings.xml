@@ -8,6 +8,8 @@
     <string name="myMusic">Η μουσική μου</string>
     <string name="myFriends">Οι φίλοι μου</string>
     <string name="gender">Φύλο</string>
+    <string name="man">Άνδρας</string>
+    <string name="woman">Γυναίκα</string>
     <string name="weight">Βάρος</string>
     <string name="height">Ύψος</string>
     <string name="age">Ηλικία</string>

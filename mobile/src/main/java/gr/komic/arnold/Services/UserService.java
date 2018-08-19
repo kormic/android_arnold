@@ -33,7 +33,7 @@ public class UserService {
         if(storedUserInfoJson != null) {
             return gson.fromJson(storedUserInfoJson, UserBodyInfo.class);
         }else {
-            return new UserBodyInfo();
+            return new UserBodyInfo(activity);
         }
     }
 }

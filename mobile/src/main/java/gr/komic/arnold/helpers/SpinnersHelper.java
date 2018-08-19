@@ -1,11 +1,15 @@
 package gr.komic.arnold.helpers;
 
+import android.content.Context;
+
+import gr.komic.arnold.R;
+
 public class SpinnersHelper {
 
-    public static String[] getGenderValues() {
+    public static String[] getGenderValues(Context context) {
         String[] genderValues = new String[2];
-        genderValues[0] = "Άντρας";
-        genderValues[1] = "Γυναίκα";
+        genderValues[0] = context.getString(R.string.man);
+        genderValues[1] = context.getString(R.string.woman);
         return genderValues;
     }
 

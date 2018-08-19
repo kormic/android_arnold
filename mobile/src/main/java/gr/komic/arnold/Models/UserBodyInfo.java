@@ -1,13 +1,20 @@
 package gr.komic.arnold.Models;
 
+import android.content.Context;
+
+import gr.komic.arnold.R;
 import gr.komic.arnold.helpers.SpinnersHelper;
 
 public class UserBodyInfo {
-    private String gender = "Άντρας";
+    private String gender;
     private int age = SpinnersHelper.getAgeValues()[34];
     private int weight = SpinnersHelper.getWeightValues()[79];
     private int height = SpinnersHelper.getHeightValues()[179];
     private int workoutsPerWeek = SpinnersHelper.getWorkoutsPerWeekValues()[3];
+
+    public UserBodyInfo(Context context) {
+        this.gender = context.getString(R.string.man);
+    }
 
     public String getGender() {
         return gender;

@@ -68,13 +68,13 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
         if(storedUserInfoJson != null) {
             this.userBodyInfo = gson.fromJson(storedUserInfoJson, UserBodyInfo.class);
         }else {
-            this.userBodyInfo = new UserBodyInfo();
+            this.userBodyInfo = new UserBodyInfo(this);
         }
     }
 
     private void setupSpinners() {
         genderSpinner = findViewById(R.id.gender_spinner);
-        ArrayAdapter<String> genderSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_center, SpinnersHelper.getGenderValues());
+        ArrayAdapter<String> genderSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_center, SpinnersHelper.getGenderValues(this));
         genderSpinner.setAdapter(genderSpinnerAdapter);
         genderSpinner.setOnItemSelectedListener(this);
 
@@ -98,7 +98,7 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
         workoutsPerWeekSpinner.setAdapter(workoutsPerWeekSpinnerAdapter);
         workoutsPerWeekSpinner.setOnItemSelectedListener(this);
 
-        genderSpinner.setSelection(Arrays.asList(SpinnersHelper.getGenderValues()).indexOf(this.userBodyInfo.getGender()));
+        genderSpinner.setSelection(Arrays.asList(SpinnersHelper.getGenderValues(this)).indexOf(this.userBodyInfo.getGender()));
         ageSpinner.setSelection(this.userBodyInfo.getAge() - 1);
         weightSpinner.setSelection(this.userBodyInfo.getWeight() - 1);
         heightSpinner.setSelection((this.userBodyInfo.getHeight()) - 1);
@@ -155,7 +155,7 @@ public class BodyActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch (adapterView.getId()) {
             case R.id.gender_spinner:
-                this.userBodyInfo.setGender(SpinnersHelper.getGenderValues()[i]);
+                this.userBodyInfo.setGender(SpinnersHelper.getGenderValues(this)[i]);
                 this.calculateBMI();
                 break;
             case R.id.age_spinner:
