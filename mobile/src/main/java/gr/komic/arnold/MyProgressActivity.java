@@ -7,15 +7,23 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import gr.komic.arnold.Adapters.MyProgressRecyclerViewAdapter;
+import gr.komic.arnold.Models.Progress;
+import gr.komic.arnold.Services.ProgressDataSource;
 
 public class MyProgressActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "MyProgressActivity";
+
     FloatingActionButton addProgressFab;
+    ProgressDataSource progressDataSource;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +37,27 @@ public class MyProgressActivity extends AppCompatActivity implements View.OnClic
 
         this.addProgressFab = findViewById(R.id.add_progress_fab);
         this.addProgressFab.setOnClickListener(this);
-        ArrayList<String> tempDates = new ArrayList<String>();
 
-        int tempDay = 14;
-        for(int i = 0; i < 10; i++){
-            tempDates.add(tempDay + i + "/4/2018");
-        }
+        this.progressDataSource = new ProgressDataSource(this);
+    }
 
-        RecyclerView recyclerView = findViewById(R.id.my_progress_recycler_view);
-        MyProgressRecyclerViewAdapter adapter = new MyProgressRecyclerViewAdapter(this, tempDates);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.progressDataSource.open();
+        ArrayList<Progress> progresses = this.progressDataSource.findAll();
+        Log.i(TAG, "Progresses count: " + progresses.size());
+
+        this.recyclerView = findViewById(R.id.my_progress_recycler_view);
+        MyProgressRecyclerViewAdapter adapter = new MyProgressRecyclerViewAdapter(this, progresses);
+        this.recyclerView.setAdapter(adapter);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.progressDataSource.close();
     }
 
     @Override

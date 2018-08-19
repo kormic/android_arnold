@@ -8,15 +8,22 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import gr.komic.arnold.Infrastructure.DateService;
+import gr.komic.arnold.Models.Progress;
 import gr.komic.arnold.Services.AddProgressService;
+import gr.komic.arnold.Services.ProgressDBOpenHelper;
+import gr.komic.arnold.Services.ProgressDataSource;
 import gr.komic.arnold.Services.UserService;
-import gr.komic.arnold.helpers.Constants;
 
-public class AddProgressActivity extends AppCompatActivity implements TextWatcher {
+public class AddProgressActivity extends AppCompatActivity implements TextWatcher, View.OnClickListener {
+
+    private static final String TAG = "AddProgressActivity";
+    String today;
 
     TextView todayTextView;
     TextView genderTextView;
@@ -26,9 +33,12 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
     EditText hipsEditText;
     EditText fatPercentage;
     CardView hipsCardView;
+    Button insertProgressButton;
 
     UserService userService;
     AddProgressService addProgressService = new AddProgressService();
+
+    ProgressDataSource progressDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +47,22 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.progressDataSource = new ProgressDataSource(this);
+
         this.userService = UserService.getInstance();
         this.setupViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.progressDataSource.open();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.progressDataSource.close();
     }
 
     private void setupViews() {
@@ -53,16 +77,20 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
             this.hipsCardView = findViewById(R.id.hips_section);
             this.hipsCardView.setVisibility(View.VISIBLE);
         }
+        this.insertProgressButton = findViewById(R.id.add_progress_button);
+        this.insertProgressButton.setOnClickListener(this);
 
         this.neckEditText.addTextChangedListener(this);
         this.waistEditText.addTextChangedListener(this);
         this.hipsEditText.addTextChangedListener(this);
 
-        String today = DateService.getTodayToString("dd/MM/yyyy");
+        this.today = DateService.getTodayToString("dd/MM/yyyy");
 
         this.todayTextView.setText(today);
         this.heightTextView.setText(String.valueOf(this.userService.restoreUserInfo(this).getHeight()));
         genderTextView.setText(this.userService.restoreUserInfo(this).getGender());
+
+
     }
 
     @Override
@@ -78,6 +106,11 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
     @Override
     public void afterTextChanged(Editable editable) {
         this.calculateFatPercentage();
+    }
+
+    @Override
+    public void onClick(View view) {
+        this.insertProgress();
     }
 
     private void calculateFatPercentage() {
@@ -97,11 +130,30 @@ public class AddProgressActivity extends AppCompatActivity implements TextWatche
                                     this.userService.restoreUserInfo(this).getHeight()
                             );
             }
-            if (Double.isNaN(percentage)) {
+            if (Double.isNaN(percentage) || percentage < 0) {
                 this.fatPercentage.setText("");
             }else {
                 this.fatPercentage.setText(String.format("%.2f", percentage));
             }
+        }
+    }
+
+    private void insertProgress() {
+        Progress progress;
+        if(!this.fatPercentage.getText().toString().isEmpty() && (this.neckEditText.getText().length() > 0 && this.waistEditText.getText().length() > 0)) {
+            if(this.userService.restoreUserInfo(this).getGender().equals("Γυναίκα") && this.hipsEditText.getText().length() > 0) {
+                progress = new Progress(this.today, Float.parseFloat(this.neckEditText.getText().toString()), Float.parseFloat(this.waistEditText.getText().toString()), Float.parseFloat(this.hipsEditText.getText().toString()));
+                progress = this.progressDataSource.insert(progress);
+                Log.i(TAG, "insertProgress: Progress added with id: " + progress.getId());
+                finish();
+            }else if (this.userService.restoreUserInfo(this).getGender().equals("Άνδρας")) {
+                progress = new Progress(this.today, Float.parseFloat(this.neckEditText.getText().toString()), Float.parseFloat(this.waistEditText.getText().toString()), 0);
+                progress = this.progressDataSource.insert(progress);
+                Log.i(TAG, "insertProgress: Progress added with id: " + progress.getId());
+                finish();
+            }
+        }else {
+            Toast.makeText(this, "Συμπληρώστε όλα τα πεδία", Toast.LENGTH_SHORT).show();
         }
     }
 }

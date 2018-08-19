@@ -1,47 +1,56 @@
 package gr.komic.arnold.Models;
 
 public class Progress {
-    private String dateAddedString = "";
-    private float wristDiameter = 0;
-    private float neckDiameter = 0;
-    private float waistDiameter = 0;
+    private long Id;
+    private String CreatedAt = "";
+    private float Hips = 0;
+    private float Neck = 0;
+    private float Waist = 0;
 
-    public Progress(String dateAddedString, float wristDiameter, float neckDiameter, float waistDiameter) {
-        this.dateAddedString = dateAddedString;
-        this.wristDiameter = wristDiameter;
-        this.neckDiameter = neckDiameter;
-        this.waistDiameter = waistDiameter;
+    public Progress(String createdAt, float Neck, float Waist, float Hips) {
+        this.CreatedAt = createdAt;
+        this.Neck = Neck;
+        this.Waist = Waist;
+        this.Hips = Hips;
     }
 
-    public String getDateAddedString() {
-        return dateAddedString;
+    public long getId() {
+        return Id;
     }
 
-    public void setDateAddedString(String dateAddedString) {
-        this.dateAddedString = dateAddedString;
+    public void setId(long id) {
+        Id = id;
     }
 
-    public float getWristDiameter() {
-        return wristDiameter;
+    public String getCreatedAt() {
+        return CreatedAt;
     }
 
-    public void setWristDiameter(float wristDiameter) {
-        this.wristDiameter = wristDiameter;
+    public void setCreatedAt(String createdAt) {
+        this.CreatedAt = createdAt;
     }
 
-    public float getNeckDiameter() {
-        return neckDiameter;
+    public float getNeck() {
+        return Neck;
     }
 
-    public void setNeckDiameter(float neckDiameter) {
-        this.neckDiameter = neckDiameter;
+    public void setNeck(float neck) {
+        this.Neck = neck;
     }
 
-    public float getWaistDiameter() {
-        return waistDiameter;
+    public float getWaist() {
+        return Waist;
     }
 
-    public void setWaistDiameter(float waistDiameter) {
-        this.waistDiameter = waistDiameter;
+    public void setWaist(float waist) {
+        this.Waist = waist;
+    }
+
+    public float getHips() {
+        return Hips;
+    }
+
+    public void setHips(float hips) {
+        this.Hips = hips;
     }
 }

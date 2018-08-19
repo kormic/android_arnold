@@ -12,17 +12,18 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import gr.komic.arnold.Models.Progress;
 import gr.komic.arnold.R;
 import gr.komic.arnold.ViewHolders.MyProgressViewHolder;
 
 public class MyProgressRecyclerViewAdapter extends RecyclerView.Adapter<MyProgressViewHolder> {
 
-    private ArrayList<String> mTempArray;
+    private ArrayList<Progress> mProgressesArrayList;
     private Context mContext;
 
-    public MyProgressRecyclerViewAdapter(Context context, ArrayList<String> tempArray) {
+    public MyProgressRecyclerViewAdapter(Context context, ArrayList<Progress> progressesArrayList) {
         this.mContext = context;
-        this.mTempArray = tempArray;
+        this.mProgressesArrayList = progressesArrayList;
     }
 
     @NonNull
@@ -46,7 +47,7 @@ public class MyProgressRecyclerViewAdapter extends RecyclerView.Adapter<MyProgre
             holder.progressCardItemStatusImageViewWrapper.setBackgroundColor(Color.BLUE);
         }
 //        holder.progressCardItemStatusImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        holder.progressCardItemDateTextView.setText(this.mTempArray.get(position));
+        holder.progressCardItemDateTextView.setText(this.mProgressesArrayList.get(position).getCreatedAt());
         holder.progressCardParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +59,6 @@ public class MyProgressRecyclerViewAdapter extends RecyclerView.Adapter<MyProgre
 
     @Override
     public int getItemCount() {
-        return this.mTempArray != null ? this.mTempArray.size() : 0 ;
+        return this.mProgressesArrayList != null ? this.mProgressesArrayList.size() : 0 ;
     }
 }
