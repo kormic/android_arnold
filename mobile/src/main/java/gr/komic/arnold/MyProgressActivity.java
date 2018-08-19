@@ -23,6 +23,7 @@ public class MyProgressActivity extends AppCompatActivity implements View.OnClic
 
     FloatingActionButton addProgressFab;
     ProgressDataSource progressDataSource;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,21 +39,19 @@ public class MyProgressActivity extends AppCompatActivity implements View.OnClic
         this.addProgressFab.setOnClickListener(this);
 
         this.progressDataSource = new ProgressDataSource(this);
-        this.progressDataSource.open();
-
-        ArrayList<Progress> progresses = this.progressDataSource.findAll();
-        Log.i(TAG, "Progresses count: " + progresses.size());
-
-        RecyclerView recyclerView = findViewById(R.id.my_progress_recycler_view);
-        MyProgressRecyclerViewAdapter adapter = new MyProgressRecyclerViewAdapter(this, progresses);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         this.progressDataSource.open();
+        ArrayList<Progress> progresses = this.progressDataSource.findAll();
+        Log.i(TAG, "Progresses count: " + progresses.size());
+
+        this.recyclerView = findViewById(R.id.my_progress_recycler_view);
+        MyProgressRecyclerViewAdapter adapter = new MyProgressRecyclerViewAdapter(this, progresses);
+        this.recyclerView.setAdapter(adapter);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

@@ -29,19 +29,17 @@
         <activity
             android:name=".MyProgressActivity"
             android:parentActivityName=".HomeActivity" />
-
+        <activity
+            android:name=".AddProgressActivity"
+            android:label="@string/title_activity_add_progress"
+            android:theme="@style/AppMaterialTheme"
+            android:parentActivityName=".MyProgressActivity" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBNeiGUn6H2GJZu8VB-QQao9u1RBbJCH7w" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-        <activity
-            android:name=".AddProgressActivity"
-            android:label="@string/title_activity_add_progress"
-            android:theme="@style/AppMaterialTheme"
-            android:parentActivityName=".MyProgressActivity"></activity>
     </application>
 
 </manifest>
