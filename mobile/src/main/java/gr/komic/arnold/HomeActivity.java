@@ -25,6 +25,10 @@ public class HomeActivity extends AppCompatActivity {
     public void navigate(View view) {
         Log.d(Constants.HOME_ACTIVITY, String.valueOf(view.getId()));
         switch (view.getId()) {
+            case R.id.myProgram_button:
+                Intent intentProgram = new Intent(this, MyProgramActivity.class);
+                startActivity(intentProgram);
+                break;
             case R.id.myBody_button:
                 Intent intentBody = new Intent(this, BodyActivity.class);
                 startActivity(intentBody);

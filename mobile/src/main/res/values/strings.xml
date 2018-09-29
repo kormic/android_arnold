@@ -48,4 +48,5 @@
     <string name="fat_percentage">Ποσοστό Λίπους</string>
     <string name="centimeters">cm</string>
     <string name="percentage">%</string>
+    <string name="myProgram">Το πρόγραμμα μου</string>
 </resources>

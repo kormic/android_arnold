@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MyProgramActivity"
+            android:parentActivityName=".HomeActivity" />
+        <activity
             android:name=".BodyActivity"
             android:parentActivityName=".HomeActivity" />
         <activity
@@ -32,8 +35,9 @@
         <activity
             android:name=".AddProgressActivity"
             android:label="@string/title_activity_add_progress"
-            android:theme="@style/AppMaterialTheme"
-            android:parentActivityName=".MyProgressActivity" />
+            android:parentActivityName=".MyProgressActivity"
+            android:theme="@style/AppMaterialTheme" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBNeiGUn6H2GJZu8VB-QQao9u1RBbJCH7w" />
