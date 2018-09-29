@@ -35,6 +35,8 @@ public class MyGymActivity extends AppCompatActivity
         DatePickerDialog.OnDateSetListener,
         PlaceSelectionListener {
 
+    private static final String TAG = "MyGymActivity";
+
     private GoogleApiClient mGoogleApiClient;
     PlaceAutocompleteFragment autocompleteFragment;
 
@@ -137,6 +139,7 @@ public class MyGymActivity extends AppCompatActivity
         String storedMyGymInfoJson = this.mSharedPrefs.getString(Constants.MY_GYM_INFO_OBJECT, null);
         if(storedMyGymInfoJson != null) {
             this.myGymInfo = gson.fromJson(storedMyGymInfoJson, MyGymInfo.class);
+            Log.d(TAG, String.valueOf(this.myGymInfo.getSubscription()));
         }else {
             this.myGymInfo = new MyGymInfo();
         }
@@ -167,15 +170,17 @@ public class MyGymActivity extends AppCompatActivity
             public void afterTextChanged(Editable editable) {
                 try {
                     if(editable.length() > 0){
-                        float subscriptionValue = Float.parseFloat(editable.toString());
+                        float editableWithCommasReplacedByDots = Float.parseFloat(editable.toString().replaceAll(",", "."));
+                        float subscriptionValue = editableWithCommasReplacedByDots;
+                        Log.d(TAG, String.valueOf(subscriptionValue));
                         MyGymActivity.this.myGymInfo.setSubscription(subscriptionValue);
                     }else {
                         MyGymActivity.this.myGymInfo.setSubscription(0);
                     }
                 }catch (NumberFormatException e) {
+                    Log.e(TAG, e.getLocalizedMessage());
                     MyGymActivity.this.myGymInfo.setSubscription(0);
                 }
-
                 MyGymActivity.this.storeMyGymInfo();
             }
         });
