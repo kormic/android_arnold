@@ -5,9 +5,9 @@ import java.util.Date;
 
 public class Program {
     int id;
-    ArrayList<Integer> exercisesIds;
+    ArrayList<Integer> exercisesIds = new ArrayList<Integer>();
     Date createdAt;
-    Boolean isCurrentProgram;
+    Boolean isCurrentProgram = false;
 
     public Program(int id) {
         this.id = id;
@@ -23,7 +23,7 @@ public class Program {
     }
 
     public void setIsCurrentProgram(Boolean isCurrentProgram) {
-        isCurrentProgram = isCurrentProgram;
+        this.isCurrentProgram = isCurrentProgram;
     }
 
     public void addExerciseToProgram(int exerciseId) {
