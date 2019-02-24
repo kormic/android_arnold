@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">arnold</string>
+    <string name="app_name">ARNOLD</string>
     <string name="options">Επιλογές</string>
     <string name="mySchedule">Το πρόγραμμα μου</string>
     <string name="myBody">Το Σώμα μου</string>
@@ -49,4 +49,7 @@
     <string name="centimeters">cm</string>
     <string name="percentage">%</string>
     <string name="myProgram">Το πρόγραμμα μου</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

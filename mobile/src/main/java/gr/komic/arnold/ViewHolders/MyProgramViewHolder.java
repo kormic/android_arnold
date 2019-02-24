@@ -8,7 +8,7 @@ import android.widget.TextView;
 import gr.komic.arnold.R;
 
 public class MyProgramViewHolder extends RecyclerView.ViewHolder {
-    public TextView programCardItemDateTextView;
+
     public CardView programCardParent;
     public TextView programType;
 
@@ -16,6 +16,5 @@ public class MyProgramViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.programCardParent = itemView.findViewById(R.id.program_card_parent);
         this.programType = itemView.findViewById(R.id.program_type);
-        this.programCardItemDateTextView = itemView.findViewById(R.id.program_created_date);
     }
 }

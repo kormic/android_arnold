@@ -20,7 +20,6 @@ public class MyProgramRecyclerViewAdapter extends RecyclerView.Adapter<MyProgram
     private static final String TAG = "MyProgramRecyclerViewAd";
     private ArrayList<Program> mProgramArrayList;
     private Context mContext;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public MyProgramRecyclerViewAdapter(Context context, ArrayList<Program> programArrayList) {
         this.mContext = context;
@@ -45,7 +44,7 @@ public class MyProgramRecyclerViewAdapter extends RecyclerView.Adapter<MyProgram
             holder.programType.setText("Past");
             holder.programCardParent.setBackgroundColor(Color.RED);
         }
-        holder.programCardItemDateTextView.setText(this.sdf.format(this.mProgramArrayList.get(position).getCreatedAt()));
+
         holder.programCardParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

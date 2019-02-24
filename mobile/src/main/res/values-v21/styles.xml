@@ -1,9 +1,0 @@
-<resources>
-    <style name="AppMaterialTheme" parent="SuperMaterialTheme">
-        <!-- Customise for only Lollipop and Above Versions features. -->
-
-        <item name="android:colorControlHighlight">@color/controlHighlight</item>
-        <item name="android:colorButtonNormal">#5C6BC0</item>
-        <item name="android:colorControlActivated">#1A237E</item>
-    </style>
-</resources>
