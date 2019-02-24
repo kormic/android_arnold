@@ -1,39 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeActivity"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".HomeActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            >
-
-        </android.support.v7.widget.Toolbar>
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            >
+            android:background="@color/colorMainBackground">
 
-            <include layout="@layout/home_grid_menu" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:navigationIcon="@drawable/baseline_dashboard_white_24">
+            </android.support.v7.widget.Toolbar>
 
+            <EditText
+                android:id="@+id/top_menu_title"
+                android:layout_width="200sp"
+                android:layout_height="50sp"
+                android:clickable="false"
+                android:editable="false"
+                android:focusable="false"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:text="In the gym"
+                android:textSize="28sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="5sp"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintStart_toStartOf="@id/toolbar"/>
 
-        </LinearLayout>
-    </ScrollView>
+            <include
+                android:id="@+id/workout_layout"
+                layout="@layout/workout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/top_menu_title"
+                android:layout_margin="10sp" />
 
+            <include
+                android:id="@+id/music_layout"
+                layout="@layout/music_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/workout_layout"
+                android:layout_margin="10sp"/>
 
-</LinearLayout>
+            <include
+                android:id="@+id/friends_layout"
+                layout="@layout/friends_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/music_layout"
+                android:layout_margin="10sp"/>
+
+            <EditText
+                android:id="@+id/bottom_menu_title"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:focusable="false"
+                android:fontFamily="@font/roboto"
+                android:gravity="bottom"
+                android:inputType="text"
+                android:text="Stats"
+                android:textSize="28sp"
+                android:layout_margin="10sp"
+                app:layout_constraintTop_toBottomOf="@+id/friends_layout"
+                app:layout_constraintBottom_toTopOf="@+id/stats_container"
+                app:layout_constraintStart_toStartOf="@id/friends_layout"/>
+
+            <LinearLayout
+                android:id="@+id/stats_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/friends_layout"
+                app:layout_constraintEnd_toEndOf="@id/friends_layout"
+                android:weightSum="3">
+
+                <include
+                    layout="@layout/my_body_button"
+                    android:layout_weight="1"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5sp" />
+
+                <include
+                    layout="@layout/my_gym_button"
+                    android:layout_weight="1"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5sp" />
+
+                <include
+                    layout="@layout/my_progress_button"
+                    android:layout_weight="1"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5sp" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
