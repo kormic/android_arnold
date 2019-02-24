@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    android:background="@color/colorMainBackground">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollview"
@@ -14,27 +14,26 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorMainBackground">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:navigationIcon="@drawable/baseline_dashboard_white_24">
-            </android.support.v7.widget.Toolbar>
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/baseline_dashboard_white_24" />
 
             <EditText
                 android:id="@+id/top_menu_title"
                 android:layout_width="200sp"
                 android:layout_height="50sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="5sp"
                 android:clickable="false"
                 android:editable="false"
                 android:focusable="false"
@@ -43,39 +42,38 @@
                 android:inputType="text"
                 android:text="In the gym"
                 android:textSize="28sp"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="5sp"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
-                app:layout_constraintStart_toStartOf="@id/toolbar"/>
+                app:layout_constraintStart_toStartOf="@id/toolbar"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
             <include
                 android:id="@+id/workout_layout"
                 layout="@layout/workout_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/top_menu_title"
-                android:layout_margin="10sp" />
+                android:layout_margin="10sp"
+                app:layout_constraintTop_toBottomOf="@id/top_menu_title" />
 
             <include
                 android:id="@+id/music_layout"
                 layout="@layout/music_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/workout_layout"
-                android:layout_margin="10sp"/>
+                android:layout_margin="10sp"
+                app:layout_constraintTop_toBottomOf="@id/workout_layout" />
 
             <include
                 android:id="@+id/friends_layout"
                 layout="@layout/friends_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/music_layout"
-                android:layout_margin="10sp"/>
+                android:layout_margin="10sp"
+                app:layout_constraintTop_toBottomOf="@id/music_layout" />
 
             <EditText
                 android:id="@+id/bottom_menu_title"
                 android:layout_width="200sp"
                 android:layout_height="wrap_content"
+                android:layout_margin="10sp"
                 android:clickable="false"
                 android:editable="false"
                 android:focusable="false"
@@ -84,40 +82,39 @@
                 android:inputType="text"
                 android:text="Stats"
                 android:textSize="28sp"
-                android:layout_margin="10sp"
-                app:layout_constraintTop_toBottomOf="@+id/friends_layout"
                 app:layout_constraintBottom_toTopOf="@+id/stats_container"
-                app:layout_constraintStart_toStartOf="@id/friends_layout"/>
+                app:layout_constraintStart_toStartOf="@id/friends_layout"
+                app:layout_constraintTop_toBottomOf="@+id/friends_layout" />
 
             <LinearLayout
                 android:id="@+id/stats_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:weightSum="3"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/friends_layout"
                 app:layout_constraintEnd_toEndOf="@id/friends_layout"
-                android:weightSum="3">
+                app:layout_constraintStart_toStartOf="@id/friends_layout">
 
                 <include
                     layout="@layout/my_body_button"
-                    android:layout_weight="1"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5sp" />
+                    android:layout_margin="5sp"
+                    android:layout_weight="1" />
 
                 <include
                     layout="@layout/my_gym_button"
-                    android:layout_weight="1"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5sp" />
+                    android:layout_margin="5sp"
+                    android:layout_weight="1" />
 
                 <include
                     layout="@layout/my_progress_button"
-                    android:layout_weight="1"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5sp" />
+                    android:layout_margin="5sp"
+                    android:layout_weight="1" />
             </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
