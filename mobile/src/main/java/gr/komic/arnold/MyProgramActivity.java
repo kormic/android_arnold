@@ -12,11 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import gr.komic.arnold.Adapters.ViewPagerAdapter;
+import gr.komic.arnold.Fragments.MuscleGroupFragment;
 import gr.komic.arnold.Fragments.MyProgramFragment;
 import gr.komic.arnold.Fragments.ProgramCreationFragment;
 
 
-public class MyProgramActivity extends AppCompatActivity implements MyProgramFragment.OnFragmentInteractionListener, ProgramCreationFragment.OnFragmentInteractionListener {
+public class MyProgramActivity extends AppCompatActivity implements MyProgramFragment.OnFragmentInteractionListener, ProgramCreationFragment.OnFragmentInteractionListener, MuscleGroupFragment.OnFragmentInteractionListener {
     private static final String TAG = "MyProgramActivity";
 
     TabLayout tabLayout;
