@@ -1,12 +1,11 @@
 package gr.komic.arnold.Models;
 
-
 import java.util.ArrayList;
 
 public class Exercise {
     int id;
     String name;
-    ArrayList<Set> sets = new ArrayList<Set>();
+    ArrayList<ExerciseSet> sets = new ArrayList<ExerciseSet>();
     String imageUrl;
 
     public Exercise(int id, String name) {
@@ -18,8 +17,8 @@ public class Exercise {
         this.name = name;
     }
 
-    public void addSet(Set set) {
-        this.sets.add(set);
+    public void addSet(ExerciseSet exerciseSet) {
+        this.sets.add(exerciseSet);
     }
 
     public void setImageUrl(String imageUrl) {
@@ -34,7 +33,7 @@ public class Exercise {
         return name;
     }
 
-    public ArrayList<Set> getSets() {
+    public ArrayList<ExerciseSet> getSets() {
         return sets;
     }
 

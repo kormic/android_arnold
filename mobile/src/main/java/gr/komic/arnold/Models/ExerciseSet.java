@@ -1,10 +1,10 @@
 package gr.komic.arnold.Models;
 
-public class Set {
+public class ExerciseSet {
     int Reps;
     float lastWeight;
 
-    public Set(int reps, float lastWeight) {
+    public ExerciseSet(int reps, float lastWeight) {
         Reps = reps;
         this.lastWeight = lastWeight;
     }
