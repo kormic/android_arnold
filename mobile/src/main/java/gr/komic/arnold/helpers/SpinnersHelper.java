@@ -44,4 +44,20 @@ public class SpinnersHelper {
         }
         return workoutsPerWeekValues;
     }
+
+    public static String[] getMockExercises(String group) {
+        String[] mockExercises = new String[2];
+        mockExercises[0] = "First Exercise";
+        mockExercises[1] = "Second Exercise";
+
+        return mockExercises;
+    }
+
+    public static Integer[] getReps() {
+        Integer[] reps = new Integer[20];
+        for(int i = 0; i < reps.length; i++) {
+            reps[i] = i + 1;
+        }
+        return reps;
+    }
 }
