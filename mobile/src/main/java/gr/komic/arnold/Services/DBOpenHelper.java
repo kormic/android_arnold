@@ -42,12 +42,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String EXC_TABLE_NAME = "Exercise";
     public static final String EXC_COLUMN_ID = "Id";
     public static final String EXC_COLUMN_NAME = "Name";
+    public static final String EXC_COLUMN_MUSCLE_GROUP = "Muscle_Group";
     public static final String EXC_COLUMN_IMG_URL = "ImageUrl";
     public static final String EXC_COLUMN_PROGRAM_ID =  "Program_Id";
     public static final String CREATE_TABLE_EXC = "CREATE TABLE IF NOT EXISTS "
                                                     + EXC_TABLE_NAME + " ("
                                                     + EXC_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                                                     + EXC_COLUMN_NAME + " VARCHAR,"
+                                                    + EXC_COLUMN_MUSCLE_GROUP + " VARCHAR,"
                                                     + EXC_COLUMN_IMG_URL + " VARCHAR,"
                                                     + EXC_COLUMN_PROGRAM_ID + " INTEGER)";
 
