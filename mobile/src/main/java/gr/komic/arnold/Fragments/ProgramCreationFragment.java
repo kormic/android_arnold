@@ -8,6 +8,8 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import java.util.ArrayList;
 import gr.komic.arnold.Models.Program;
 import gr.komic.arnold.R;
@@ -20,6 +22,7 @@ public class ProgramCreationFragment extends Fragment {
     CardView shoulders;
     CardView biceps;
     CardView triceps;
+    Button storeProgramButton;
     ArrayList<Program> programs = new ArrayList<Program>();
 
     private OnFragmentInteractionListener mListener;
@@ -31,8 +34,6 @@ public class ProgramCreationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_program_creation, container, false);
         setupButtons(view);
-        Program program1 = new Program(0);
-        program1.setIsCurrentProgram(true);
 
         return view;
     }
@@ -56,8 +57,7 @@ public class ProgramCreationFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onProgramCreate(Program program);
     }
 
     private void setupButtons(View view) {
@@ -67,6 +67,7 @@ public class ProgramCreationFragment extends Fragment {
         this.triceps = view.findViewById(R.id.triceps);
         this.biceps = view.findViewById(R.id.biceps);
         this.shoulders = view.findViewById(R.id.shoulders);
+        this.storeProgramButton = view.findViewById(R.id.store_program_button);
 
         this.chest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +108,15 @@ public class ProgramCreationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openMuscleGroupFragment("shoulders");
+            }
+        });
+
+        this.storeProgramButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Program program = new Program();
+                program.setName("First test program");
+                mListener.onProgramCreate(program);
             }
         });
     }

@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import gr.komic.arnold.Adapters.MyProgressRecyclerViewAdapter;
 import gr.komic.arnold.Models.Progress;
@@ -35,29 +34,29 @@ public class MyProgressActivity extends AppCompatActivity implements View.OnClic
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        this.addProgressFab = findViewById(R.id.add_progress_fab);
-        this.addProgressFab.setOnClickListener(this);
+        addProgressFab = findViewById(R.id.add_progress_fab);
+        addProgressFab.setOnClickListener(this);
 
-        this.progressDataSource = new ProgressDataSource(this);
+        progressDataSource = new ProgressDataSource(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.progressDataSource.open();
-        ArrayList<Progress> progresses = this.progressDataSource.findAll();
+        progressDataSource.open();
+        ArrayList<Progress> progresses = this.progressDataSource.findAllProgresses();
         Log.i(TAG, "Progresses count: " + progresses.size());
 
-        this.recyclerView = findViewById(R.id.my_progress_recycler_view);
+        recyclerView = findViewById(R.id.my_progress_recycler_view);
         MyProgressRecyclerViewAdapter adapter = new MyProgressRecyclerViewAdapter(this, progresses);
-        this.recyclerView.setAdapter(adapter);
-        this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        this.progressDataSource.close();
+        progressDataSource.close();
     }
 
     @Override

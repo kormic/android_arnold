@@ -2,6 +2,9 @@ package gr.komic.arnold.helpers;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
+import gr.komic.arnold.Models.Exercise;
 import gr.komic.arnold.R;
 
 public class SpinnersHelper {
@@ -45,12 +48,26 @@ public class SpinnersHelper {
         return workoutsPerWeekValues;
     }
 
-    public static String[] getMockExercises(String group) {
-        String[] mockExercises = new String[2];
-        mockExercises[0] = "First Exercise";
-        mockExercises[1] = "Second Exercise";
+    public static ArrayList<Exercise> getMockExercises(String group) {
+        ArrayList<Exercise> exercises = new ArrayList<>();
 
-        return mockExercises;
+        Exercise exercise1 = new Exercise("Chest Press");
+        Exercise exercise2 = new Exercise("Peck Deck");
+        exercise1.setId(1);
+        exercise2.setId(2);
+        exercises.add(exercise1);
+        exercises.add(exercise2);
+
+        return exercises;
+    }
+
+    public static Integer[] getNoOfSets() {
+        Integer[] sets = new Integer[6];
+        for(int i = 0; i < sets.length; i++) {
+            sets[i] = i + 1;
+        }
+
+        return sets;
     }
 
     public static Integer[] getReps() {
@@ -58,6 +75,7 @@ public class SpinnersHelper {
         for(int i = 0; i < reps.length; i++) {
             reps[i] = i + 1;
         }
+
         return reps;
     }
 }

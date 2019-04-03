@@ -4,14 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Program {
-    int id;
-    ArrayList<Integer> exercisesIds = new ArrayList<Integer>();
+    long id;
+    String title;
+    ArrayList<Long> exercisesIds = new ArrayList<Long>();
     Date createdAt;
     Boolean isCurrentProgram = false;
 
-    public Program(int id) {
-        this.id = id;
+    public Program() {
         this.createdAt = new Date();
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 
     public Date getCreatedAt() {
@@ -22,11 +30,23 @@ public class Program {
         return isCurrentProgram;
     }
 
+    public ArrayList<Long> getExerciseIds() {
+        return this.exercisesIds;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String title) {
+        this.title = title;
+    }
+
     public void setIsCurrentProgram(Boolean isCurrentProgram) {
         this.isCurrentProgram = isCurrentProgram;
     }
 
-    public void addExerciseToProgram(int exerciseId) {
+    public void addExerciseToProgram(long exerciseId) {
         this.exercisesIds.add(exerciseId);
     }
 

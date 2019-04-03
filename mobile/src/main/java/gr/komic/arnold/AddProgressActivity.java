@@ -16,7 +16,6 @@ import android.widget.Toast;
 import gr.komic.arnold.Infrastructure.DateService;
 import gr.komic.arnold.Models.Progress;
 import gr.komic.arnold.Services.AddProgressService;
-import gr.komic.arnold.Services.ProgressDBOpenHelper;
 import gr.komic.arnold.Services.ProgressDataSource;
 import gr.komic.arnold.Services.UserService;
 

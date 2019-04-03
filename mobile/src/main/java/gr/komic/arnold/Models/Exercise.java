@@ -3,29 +3,40 @@ package gr.komic.arnold.Models;
 import java.util.ArrayList;
 
 public class Exercise {
-    int id;
+    long id;
     String name;
-    ArrayList<ExerciseSet> sets = new ArrayList<ExerciseSet>();
+    ArrayList<ExerciseSet> exerciseSets = new ArrayList<ExerciseSet>();
+    String muscleGroup;
     String imageUrl;
+    long programId;
 
-    public Exercise(int id, String name) {
-        this.id = id;
+    public Exercise(String name) {
         this.name = name;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void addSet(ExerciseSet exerciseSet) {
-        this.sets.add(exerciseSet);
+    public void setMuscleGroup(String muscleGroup) {
+        this.muscleGroup = muscleGroup;
+    }
+
+    public void addExerciseSet(ExerciseSet exerciseSet) {
+        this.exerciseSets.add(exerciseSet);
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public int getId() {
+    public void setProgramId(long programId) { this.programId = programId; }
+
+    public long getId() {
         return id;
     }
 
@@ -33,11 +44,24 @@ public class Exercise {
         return name;
     }
 
-    public ArrayList<ExerciseSet> getSets() {
-        return sets;
+    public String getMuscleGroup() {
+        return muscleGroup;
+    }
+
+    public ArrayList<ExerciseSet> getExerciseSets() {
+        return exerciseSets;
     }
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public long getProgramId() {
+        return programId;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -13,55 +13,56 @@ import gr.komic.arnold.Models.Progress;
 public class ProgressDataSource {
 
     private static final String TAG = "ProgressDataSource";
-    private static final String[] collumns = {
-      ProgressDBOpenHelper.COLUMN_ID,
-      ProgressDBOpenHelper.COLUMN_CREATED_AT,
-      ProgressDBOpenHelper.COLUMN_NECK,
-      ProgressDBOpenHelper.COLUMN_WAIST,
-      ProgressDBOpenHelper.COLUMN_HIPS
+
+    private static final String[] columns = {
+        DBOpenHelper.PROGRESS_COLUMN_ID,
+        DBOpenHelper.PROGRESS_COLUMN_CREATED_AT,
+        DBOpenHelper.PROGRESS_COLUMN_NECK,
+        DBOpenHelper.PROGRESS_COLUMN_WAIST,
+        DBOpenHelper.PROGRESS_COLUMN_HIPS
     };
 
-    ProgressDBOpenHelper progressDBOpenHelper;
+    DBOpenHelper dbOpenHelper;
     SQLiteDatabase database;
 
     public ProgressDataSource(Context context) {
-        this.progressDBOpenHelper = new ProgressDBOpenHelper(context);
+        dbOpenHelper = new DBOpenHelper(context);
     }
 
     public void open() {
         Log.i(TAG, "Database opened");
-        this.database = this.progressDBOpenHelper.getReadableDatabase();
+        database = this.dbOpenHelper.getReadableDatabase();
     }
 
     public void close() {
         Log.i(TAG, "Database closed");
-        this.database.close();
+        database.close();
     }
 
     public Progress insert(Progress progress) {
         ContentValues values = new ContentValues();
-        values.put(ProgressDBOpenHelper.COLUMN_CREATED_AT, progress.getCreatedAt());
-        values.put(ProgressDBOpenHelper.COLUMN_NECK, progress.getNeck());
-        values.put(ProgressDBOpenHelper.COLUMN_WAIST, progress.getWaist());
-        values.put(ProgressDBOpenHelper.COLUMN_HIPS, progress.getHips());
-        long insertId = database.insert(ProgressDBOpenHelper.TABLE_NAME, null, values);
+        values.put(DBOpenHelper.PROGRESS_COLUMN_CREATED_AT, progress.getCreatedAt());
+        values.put(DBOpenHelper.PROGRESS_COLUMN_NECK, progress.getNeck());
+        values.put(DBOpenHelper.PROGRESS_COLUMN_WAIST, progress.getWaist());
+        values.put(DBOpenHelper.PROGRESS_COLUMN_HIPS, progress.getHips());
+        long insertId = database.insert(DBOpenHelper.PROGRESS_TABLE_NAME, null, values);
         progress.setId(insertId);
 
         return progress;
     }
 
-    public ArrayList<Progress> findAll() {
+    public ArrayList<Progress> findAllProgresses() {
         ArrayList<Progress> progresses = new ArrayList<>();
-        Cursor cursor = database.query(ProgressDBOpenHelper.TABLE_NAME, collumns, null, null, null, null, null);
+        Cursor cursor = database.query(DBOpenHelper.PROGRESS_TABLE_NAME, columns, null, null, null, null, null);
 
         Log.i(TAG, "Returned " + cursor.getCount() + " rows");
         while(cursor.moveToNext()) {
-            String createdAt = cursor.getString(cursor.getColumnIndex(ProgressDBOpenHelper.COLUMN_CREATED_AT));
-            float neck = cursor.getFloat(cursor.getColumnIndex(ProgressDBOpenHelper.COLUMN_NECK));
-            float waist = cursor.getFloat(cursor.getColumnIndex(ProgressDBOpenHelper.COLUMN_WAIST));
-            float hips = cursor.getFloat(cursor.getColumnIndex(ProgressDBOpenHelper.COLUMN_HIPS));
+            String createdAt = cursor.getString(cursor.getColumnIndex(DBOpenHelper.PROGRESS_COLUMN_CREATED_AT));
+            float neck = cursor.getFloat(cursor.getColumnIndex(DBOpenHelper.PROGRESS_COLUMN_NECK));
+            float waist = cursor.getFloat(cursor.getColumnIndex(DBOpenHelper.PROGRESS_COLUMN_WAIST));
+            float hips = cursor.getFloat(cursor.getColumnIndex(DBOpenHelper.PROGRESS_COLUMN_HIPS));
             Progress progress = new Progress(createdAt, neck, waist, hips);
-            progress.setId(cursor.getColumnIndex(ProgressDBOpenHelper.COLUMN_ID));
+            progress.setId(cursor.getColumnIndex(DBOpenHelper.PROGRESS_COLUMN_ID));
 
             progresses.add(progress);
         }
