@@ -12,13 +12,6 @@ import gr.komic.arnold.Models.ExerciseSet;
 
 public class ExerciseSetDBDataSource {
     private static final String TAG = "ExerciseSetDBDataSource";
-    private static final String[] columns = {
-            DBOpenHelper.EXC_SET_COLUMN_SEQUENCE,
-            DBOpenHelper.EXC_SET_COLUMN_REPS,
-            DBOpenHelper.EXC_SET_COLUMN_LAST_WEIGHT,
-            DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID,
-            DBOpenHelper.EXC_SET_COLUMN_PROGRAM_ID
-    };
 
     DBOpenHelper dbOpenHelper;
     SQLiteDatabase database;
