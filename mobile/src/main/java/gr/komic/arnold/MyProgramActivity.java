@@ -70,7 +70,12 @@ public class MyProgramActivity extends AppCompatActivity implements
 
         ArrayList<Program> pastPrograms = programDBDataSource.findAll();
         for(Program program: pastPrograms) {
-            Log.d(TAG, "onCreate: " + program.getTitle());
+            ArrayList<Exercise> exercises = exerciseDBDataSource.findExercisesByProgramId(program.getId());
+            Log.d(TAG, "program retrieved: " + program.getTitle());
+            for(Exercise exercise: exercises) {
+                program.addExerciseToProgram(exercise.getId());
+                Log.d(TAG, "added exercise id: " + exercise.getId());
+            }
         }
     }
 
