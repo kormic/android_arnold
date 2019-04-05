@@ -1,6 +1,7 @@
 package gr.komic.arnold;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +67,11 @@ public class MyProgramActivity extends AppCompatActivity implements
         programDBDataSource.open();
         exerciseDBDataSource.open();
         exerciseSetDBDataSource.open();
+
+        ArrayList<Program> pastPrograms = programDBDataSource.findAll();
+        for(Program program: pastPrograms) {
+            Log.d(TAG, "onCreate: " + program.getTitle());
+        }
     }
 
     @Override
