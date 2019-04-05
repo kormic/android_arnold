@@ -54,7 +54,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                                                     + EXC_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                                                     + EXC_COLUMN_NAME + " TEXT NOT NULL,"
                                                     + EXC_COLUMN_MUSCLE_GROUP + " TEXT NOT NULL,"
-                                                    + EXC_COLUMN_IMG_URL + " TEXT NOT NULL,"
+                                                    + EXC_COLUMN_IMG_URL + " TEXT,"
                                                     + EXC_COLUMN_PROGRAM_ID + " INTEGER NOT NULL,"
                                                     + " FOREIGN KEY("
                                                     + EXC_COLUMN_PROGRAM_ID
