@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import gr.komic.arnold.Models.Program;
 import gr.komic.arnold.R;
 
@@ -115,7 +117,9 @@ public class ProgramCreationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Program program = new Program();
-                program.setName("First test program");
+                program.setTitle("First test program");
+                program.setIsCurrentProgram(false);
+                program.setCreatedAt(new Date());
                 mListener.onProgramCreate(program);
             }
         });
