@@ -7,8 +7,8 @@ import android.util.Log;
 
 import gr.komic.arnold.Models.Program;
 
-public class ProgramDataSource {
-    private static final String TAG = "ProgramDataSource";
+public class ProgramDBDataSource {
+    private static final String TAG = "ProgramDBDataSource";
     private static final String[] columns = {
             DBOpenHelper.PROGRESS_COLUMN_ID,
             DBOpenHelper.PROGRAM_COLUMN_CREATED_AT,
@@ -19,7 +19,7 @@ public class ProgramDataSource {
     DBOpenHelper dbOpenHelper;
     SQLiteDatabase database;
 
-    public ProgramDataSource(Context context) {
+    public ProgramDBDataSource(Context context) {
         dbOpenHelper = new DBOpenHelper(context);
     }
 
