@@ -4,53 +4,49 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Program {
-    long id;
-    String title;
-    ArrayList<Long> exercisesIds = new ArrayList<Long>();
-    Date createdAt;
-    Boolean isCurrentProgram = false;
+    long Id;
+    String Title;
+    ArrayList<Long> ExercisesIds = new ArrayList<Long>();
+    Date CreatedAt;
+    Boolean IsCurrentProgram = false;
 
     public Program() {
-        this.createdAt = new Date();
+        CreatedAt = new Date();
     }
 
     public long getId() {
-        return this.id;
+        return Id;
     }
 
     public String getTitle() {
-        return this.title;
+        return Title;
     }
 
     public Date getCreatedAt() {
-        return createdAt;
+        return CreatedAt;
     }
 
     public Boolean getIsCurrentProgram() {
-        return isCurrentProgram;
+        return IsCurrentProgram;
     }
 
-    public ArrayList<Long> getExerciseIds() {
-        return this.exercisesIds;
-    }
+    public ArrayList<Long> getExerciseIds() { return ExercisesIds; }
 
     public void setId(long id) {
-        this.id = id;
+        Id = id;
     }
 
-    public void setName(String title) {
-        this.title = title;
+    public void setTitle(String title) {
+        Title = title;
     }
 
-    public void setIsCurrentProgram(Boolean isCurrentProgram) {
-        this.isCurrentProgram = isCurrentProgram;
-    }
+    public void setCreatedAt(Date createdAt) { CreatedAt = createdAt; }
+
+    public void setIsCurrentProgram(Boolean isCurrentProgram) { IsCurrentProgram = isCurrentProgram; }
 
     public void addExerciseToProgram(long exerciseId) {
-        this.exercisesIds.add(exerciseId);
+        ExercisesIds.add(exerciseId);
     }
 
-    public void removeExerciseFromProgram(int exerciseid) {
-        this.exercisesIds.remove(this.exercisesIds.indexOf(exerciseid));
-    }
+    public void removeExerciseFromProgram(int exerciseid) { ExercisesIds.remove(ExercisesIds.indexOf(exerciseid)); }
 }
