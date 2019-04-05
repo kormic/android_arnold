@@ -16,7 +16,8 @@ public class ExerciseSetDBDataSource {
             DBOpenHelper.EXC_SET_COLUMN_SEQUENCE,
             DBOpenHelper.EXC_SET_COLUMN_REPS,
             DBOpenHelper.EXC_SET_COLUMN_LAST_WEIGHT,
-            DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID
+            DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID,
+            DBOpenHelper.EXC_SET_COLUMN_PROGRAM_ID
     };
 
     DBOpenHelper dbOpenHelper;
@@ -42,6 +43,7 @@ public class ExerciseSetDBDataSource {
         values.put(DBOpenHelper.EXC_SET_COLUMN_REPS, exerciseSet.getReps());
         values.put(DBOpenHelper.EXC_SET_COLUMN_LAST_WEIGHT, exerciseSet.getLastWeight());
         values.put(DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID, exerciseSet.getExerciseId());
+        values.put(DBOpenHelper.EXC_SET_COLUMN_PROGRAM_ID, exerciseSet.getProgramId());
         database.insert(DBOpenHelper.EXC_SET_TABLE_NAME, null, values);
 
         return exerciseSet;
