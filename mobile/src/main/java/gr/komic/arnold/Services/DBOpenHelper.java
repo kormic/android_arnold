@@ -80,8 +80,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                                                         + ") REFERENCES " + EXC_TABLE_NAME + "(" + EXC_COLUMN_ID +"),"
                                                         + " FOREIGN KEY("
                                                         + EXC_SET_COLUMN_PROGRAM_ID
-                                                        + ") REFERENCES " + PROGRAM_TABLE_NAME + "(" + PROGRESS_COLUMN_ID +"),"
-                                                        + " PRIMARY KEY("+ EXC_SET_COLUMN_EXERCISE_ID + ", " + EXC_SET_COLUMN_PROGRAM_ID + ")"
+                                                        + ") REFERENCES " + PROGRAM_TABLE_NAME + "(" + PROGRESS_COLUMN_ID +")"
                                                         + ")";
 
     public DBOpenHelper(@Nullable Context context) {
