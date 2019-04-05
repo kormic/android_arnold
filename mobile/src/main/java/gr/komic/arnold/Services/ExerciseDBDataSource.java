@@ -31,7 +31,7 @@ public class ExerciseDBDataSource {
         values.put(DBOpenHelper.EXC_COLUMN_IMG_URL, exercise.getImageUrl());
         values.put(DBOpenHelper.EXC_COLUMN_MUSCLE_GROUP, exercise.getMuscleGroup());
         values.put(DBOpenHelper.EXC_COLUMN_PROGRAM_ID, exercise.getProgramId());
-        long id = database.insert(DBOpenHelper.EXC_SET_TABLE_NAME, null, values);
+        long id = database.insert(DBOpenHelper.EXC_TABLE_NAME, null, values);
         exercise.setId(id);
 
         return exercise;
