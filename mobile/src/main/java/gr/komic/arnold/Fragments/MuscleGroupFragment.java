@@ -144,18 +144,7 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private boolean exerciseHasBeenAdded(Exercise selectedExercise) {
-//        Boolean added = false;
-
-//        final int childCount = containerLayout.getChildCount();
-//        for (int i = 0; i < childCount; i++) {
-//            LinearLayout ll = (LinearLayout) containerLayout.getChildAt(i);
-//            if (ll.getId() == selectedExercise.getId()) {
-//                added = true;
-//            }
-//        }
         return exercises.contains(selectedExercise);
-
-//        return added;
     }
 
     public void storeExercises() {
