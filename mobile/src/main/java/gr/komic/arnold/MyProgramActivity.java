@@ -17,7 +17,9 @@ import gr.komic.arnold.Fragments.SetsDialogFragment;
 import gr.komic.arnold.Models.Exercise;
 import gr.komic.arnold.Models.ExerciseSet;
 import gr.komic.arnold.Models.Program;
+import gr.komic.arnold.Services.ExerciseDBDataSource;
 import gr.komic.arnold.Services.ExerciseSetDBDataSource;
+import gr.komic.arnold.Services.ProgramDBDataSource;
 
 
 public class MyProgramActivity extends AppCompatActivity implements
@@ -28,6 +30,8 @@ public class MyProgramActivity extends AppCompatActivity implements
 
     private static final String TAG = "MyProgramActivity";
 
+    ProgramDBDataSource programDBDataSource;
+    ExerciseDBDataSource exerciseDBDataSource;
     ExerciseSetDBDataSource exerciseSetDBDataSource;
     TabLayout tabLayout;
     ViewPager vp;
@@ -49,18 +53,24 @@ public class MyProgramActivity extends AppCompatActivity implements
         setupViewPager(vp);
         tabLayout.setupWithViewPager(vp);
 
+        programDBDataSource = new ProgramDBDataSource(this);
+        exerciseDBDataSource = new ExerciseDBDataSource(this);
         exerciseSetDBDataSource = new ExerciseSetDBDataSource(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        programDBDataSource.open();
+        exerciseDBDataSource.open();
         exerciseSetDBDataSource.open();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        programDBDataSource.close();
+        exerciseDBDataSource.close();
         exerciseSetDBDataSource.close();
     }
 
@@ -75,18 +85,27 @@ public class MyProgramActivity extends AppCompatActivity implements
     public void onProgramCreate(Program program) {
         selectedProgram = program;
 
-        for (Exercise exercise : selectedExercises) {
-            for (ExerciseSet exerciseSet : selectedExerciseSets) {
+        for (Exercise exercise: selectedExercises) {
+            for (ExerciseSet exerciseSet: selectedExerciseSets) {
                 if (exercise.getId() == exerciseSet.getExerciseId()) {
-                    exercise.addExerciseSet(exerciseSet);
+                    exerciseSet.setExerciseId(exercise.getId());
                     Log.d(TAG, "Exercise Muscle Group: " + exercise.getMuscleGroup());
                 }
             }
             selectedProgram.addExerciseToProgram(exercise.getId());
         }
 
-        Log.d(TAG, "onProgramCreate: " + selectedProgram.getExerciseIds());
+        Program insertedProgram = programDBDataSource.insert(selectedProgram);
 
+        for(Exercise exercise: selectedExercises) {
+            exercise.setProgramId(insertedProgram.getId());
+            exerciseDBDataSource.insert(exercise);
+        }
+
+        for(ExerciseSet exerciseSet: selectedExerciseSets) { ;
+            exerciseSet.setProgramId(insertedProgram.getId());
+            exerciseSetDBDataSource.insert(exerciseSet);
+        }
     }
 
     @Override
