@@ -8,6 +8,7 @@ public class ExerciseSet implements Parcelable {
     int Reps;
     float LastWeight;
     long ExerciseId;
+    long ProgramId;
 
     public ExerciseSet(int reps, float lastWeight) {
         Reps = reps;
@@ -19,6 +20,7 @@ public class ExerciseSet implements Parcelable {
         Reps = in.readInt();
         LastWeight = in.readFloat();
         ExerciseId = in.readLong();
+        ProgramId = in.readLong();
     }
 
     public static final Creator<ExerciseSet> CREATOR = new Creator<ExerciseSet>() {
@@ -47,7 +49,11 @@ public class ExerciseSet implements Parcelable {
 
     public long getExerciseId() { return ExerciseId; }
 
+    public long getProgramId() { return  ProgramId; }
+
     public void setExerciseId(long exerciseId) { ExerciseId = exerciseId; }
+
+    public void setProgramId(long programId) { ProgramId = programId; }
 
     public void setReps(int reps) {
         Reps = reps;
