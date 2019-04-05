@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import gr.komic.arnold.Adapters.ViewPagerAdapter;
 import gr.komic.arnold.Fragments.MuscleGroupFragment;
 import gr.komic.arnold.Fragments.MyProgramFragment;
+import gr.komic.arnold.Fragments.PastProgramsFragment;
 import gr.komic.arnold.Fragments.ProgramCreationFragment;
 import gr.komic.arnold.Fragments.SetsDialogFragment;
 import gr.komic.arnold.Models.Exercise;
@@ -25,6 +26,7 @@ import gr.komic.arnold.Services.ProgramDBDataSource;
 public class MyProgramActivity extends AppCompatActivity implements
         MyProgramFragment.OnFragmentInteractionListener,
         ProgramCreationFragment.OnFragmentInteractionListener,
+        PastProgramsFragment.OnPastProgramsInteractionListener,
         MuscleGroupFragment.OnFragmentInteractionListener,
         SetsDialogFragment.OnFragmentInteractionListener {
 
@@ -78,6 +80,8 @@ public class MyProgramActivity extends AppCompatActivity implements
         ViewPagerAdapter vpa = new ViewPagerAdapter(getSupportFragmentManager());
         vpa.addFragment(new MyProgramFragment(), "Current");
         vpa.addFragment(new ProgramCreationFragment(), "New");
+        vpa.addFragment(new PastProgramsFragment(), "Past");
+
         vp.setAdapter(vpa);
     }
 
@@ -129,5 +133,9 @@ public class MyProgramActivity extends AppCompatActivity implements
 
     @Override
     public void onProgramInteraction() {
+    }
+
+    @Override
+    public void onPastProgramsInteraction() {
     }
 }
