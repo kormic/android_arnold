@@ -1,7 +1,6 @@
 package gr.komic.arnold;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +15,7 @@ import gr.komic.arnold.Fragments.MyProgramFragment;
 import gr.komic.arnold.Fragments.PastProgramsFragment;
 import gr.komic.arnold.Fragments.ProgramCreationFragment;
 import gr.komic.arnold.Fragments.SetsDialogFragment;
+import gr.komic.arnold.Models.AvailableExercise;
 import gr.komic.arnold.Models.Exercise;
 import gr.komic.arnold.Models.ExerciseSet;
 import gr.komic.arnold.Models.Program;
@@ -39,13 +39,21 @@ public class MyProgramActivity extends AppCompatActivity implements
     TabLayout tabLayout;
     ViewPager vp;
     Program selectedProgram;
-    ArrayList<Exercise> selectedExercises = new ArrayList<>();
+    ArrayList<AvailableExercise> selectedAvailableExcercises = new ArrayList<>();
     ArrayList<ExerciseSet> selectedExerciseSets = new ArrayList<>();
+    ArrayList<Program> pastPrograms = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_program_container);
+
+        programDBDataSource = new ProgramDBDataSource(this);
+        exerciseDBDataSource = new ExerciseDBDataSource(this);
+        exerciseSetDBDataSource = new ExerciseSetDBDataSource(this);
+
+        openDBs();
+        restorePastPrograms();
 
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -55,28 +63,12 @@ public class MyProgramActivity extends AppCompatActivity implements
         vp = findViewById(R.id.viewpager);
         setupViewPager(vp);
         tabLayout.setupWithViewPager(vp);
-
-        programDBDataSource = new ProgramDBDataSource(this);
-        exerciseDBDataSource = new ExerciseDBDataSource(this);
-        exerciseSetDBDataSource = new ExerciseSetDBDataSource(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        programDBDataSource.open();
-        exerciseDBDataSource.open();
-        exerciseSetDBDataSource.open();
-
-        ArrayList<Program> pastPrograms = programDBDataSource.findAll();
-        for(Program program: pastPrograms) {
-            ArrayList<Exercise> exercises = exerciseDBDataSource.findExercisesByProgramId(program.getId());
-            Log.d(TAG, "program retrieved: " + program.getTitle());
-            for(Exercise exercise: exercises) {
-                program.addExerciseToProgram(exercise.getId());
-                Log.d(TAG, "added exercise id: " + exercise.getId());
-            }
-        }
+        openDBs();
     }
 
     @Override
@@ -87,40 +79,70 @@ public class MyProgramActivity extends AppCompatActivity implements
         exerciseSetDBDataSource.close();
     }
 
+    private void openDBs() {
+        programDBDataSource.open();
+        exerciseDBDataSource.open();
+        exerciseSetDBDataSource.open();
+        restorePastPrograms();
+    }
+
+    private void restorePastPrograms() {
+        pastPrograms = programDBDataSource.findAll();
+        for(Program program: pastPrograms) {
+            ArrayList<Exercise> exercises = exerciseDBDataSource.findExercisesByProgramId(program.getId());
+            Log.d(TAG, "program retrieved: " + program.getTitle());
+            for(Exercise exercise: exercises) {
+                Log.d(TAG, "added exercise id: " + exercise.getId());
+                ArrayList<ExerciseSet> exerciseSets = exerciseSetDBDataSource.getByProgramAndExerciseId(program.getId(), exercise.getId());
+                for(ExerciseSet exerciseSet: exerciseSets) {
+                    exercise.addExerciseSet(exerciseSet);
+                }
+                program.addExerciseToProgram(exercise);
+            }
+        }
+        Log.d(TAG, "PastPrograms: " + pastPrograms.size());
+    }
+
     public void setupViewPager(ViewPager vp) {
         ViewPagerAdapter vpa = new ViewPagerAdapter(getSupportFragmentManager());
         vpa.addFragment(new MyProgramFragment(), "Current");
         vpa.addFragment(new ProgramCreationFragment(), "New");
-        vpa.addFragment(new PastProgramsFragment(), "Past");
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("pastPrograms", pastPrograms);
+        PastProgramsFragment pastProgramsFragment = new PastProgramsFragment();
+        pastProgramsFragment.setArguments(bundle);
+        vpa.addFragment(pastProgramsFragment, "Past");
 
         vp.setAdapter(vpa);
     }
 
     @Override
     public void onProgramCreate(Program program) {
-        selectedProgram = program;
+        Program insertedProgram = programDBDataSource.insert(program);
 
-        for (Exercise exercise: selectedExercises) {
+        for (AvailableExercise availableExercise: selectedAvailableExcercises) {
+            Exercise exercise = new Exercise(availableExercise.getName());
+            exercise.setMuscleGroup(availableExercise.getMuscleGroup());
+            exercise.setProgramId(insertedProgram.getId());
+            exercise = exerciseDBDataSource.insert(exercise);
+
             for (ExerciseSet exerciseSet: selectedExerciseSets) {
-                if (exercise.getId() == exerciseSet.getExerciseId()) {
+                if (availableExercise.getId() == exerciseSet.getExerciseId()) {
                     exerciseSet.setExerciseId(exercise.getId());
                     Log.d(TAG, "Exercise Muscle Group: " + exercise.getMuscleGroup());
+                    exercise.addExerciseSet(exerciseSet);
                 }
             }
-            selectedProgram.addExerciseToProgram(exercise.getId());
+            insertedProgram.addExerciseToProgram(exercise);
         }
 
-        Program insertedProgram = programDBDataSource.insert(selectedProgram);
-
-        for(Exercise exercise: selectedExercises) {
-            exercise.setProgramId(insertedProgram.getId());
-            exerciseDBDataSource.insert(exercise);
-        }
 
         for(ExerciseSet exerciseSet: selectedExerciseSets) { ;
             exerciseSet.setProgramId(insertedProgram.getId());
             exerciseSetDBDataSource.insert(exerciseSet);
         }
+
+        selectedProgram = insertedProgram;
     }
 
     @Override
@@ -133,11 +155,11 @@ public class MyProgramActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onMuscleGroupInteraction(ArrayList<Exercise> exercises) {
-        for (Exercise exercise : exercises) {
-            if (!selectedExercises.contains(exercise)) {
-                Log.d(TAG, "onMuscleGroupInteraction: " + exercise.getName());
-                selectedExercises.add(exercise);
+    public void onMuscleGroupInteraction(ArrayList<AvailableExercise> availableExercises) {
+        for (AvailableExercise availableExercise : availableExercises) {
+            if (!selectedAvailableExcercises.contains(availableExercise)) {
+                Log.d(TAG, "onMuscleGroupInteraction: " + availableExercise.getName());
+                selectedAvailableExcercises.add(availableExercise);
             }
         }
     }

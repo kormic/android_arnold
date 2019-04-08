@@ -78,5 +78,6 @@ public class ExerciseSet implements Parcelable {
         dest.writeInt(Reps);
         dest.writeFloat(LastWeight);
         dest.writeInt(Sequence);
+        dest.writeLong(ProgramId);
     }
 }

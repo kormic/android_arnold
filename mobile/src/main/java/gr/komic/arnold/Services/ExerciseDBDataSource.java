@@ -70,4 +70,27 @@ public class ExerciseDBDataSource {
 
         return exercises;
     }
+
+    public ArrayList<Exercise> findAll() {
+        ArrayList<Exercise> exercises = new ArrayList<>();
+        Cursor cursor = database.query(DBOpenHelper.EXC_TABLE_NAME, columns, null, null, null, null, null);
+
+        Log.i(TAG, "Returned " + cursor.getCount() + " rows");
+        while(cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndex(DBOpenHelper.EXC_COLUMN_NAME));
+            long id = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.EXC_COLUMN_ID));
+            long program_Id = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.EXC_COLUMN_PROGRAM_ID));
+            String muscleGroup = cursor.getString(cursor.getColumnIndex(DBOpenHelper.EXC_COLUMN_MUSCLE_GROUP));
+            String imgUrl = cursor.getString(cursor.getColumnIndex(DBOpenHelper.EXC_COLUMN_IMG_URL));
+            Exercise exercise = new Exercise(name);
+            exercise.setMuscleGroup(muscleGroup);
+            exercise.setImageUrl(imgUrl == null ? imgUrl : "");
+            exercise.setId(id);
+            exercise.setProgramId(program_Id);
+
+            exercises.add(exercise);
+        }
+
+        return exercises;
+    }
 }

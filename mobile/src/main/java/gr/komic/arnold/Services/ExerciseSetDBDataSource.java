@@ -8,10 +8,19 @@ import android.util.Log;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+
 import gr.komic.arnold.Models.ExerciseSet;
 
 public class ExerciseSetDBDataSource {
     private static final String TAG = "ExerciseSetDBDataSource";
+    private static final String[] columns = {
+            DBOpenHelper.EXC_SET_COLUMN_SEQUENCE,
+            DBOpenHelper.EXC_SET_COLUMN_REPS,
+            DBOpenHelper.EXC_SET_COLUMN_LAST_WEIGHT,
+            DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID,
+            DBOpenHelper.EXC_SET_COLUMN_PROGRAM_ID
+    };
 
     DBOpenHelper dbOpenHelper;
     SQLiteDatabase database;
@@ -42,21 +51,35 @@ public class ExerciseSetDBDataSource {
         return exerciseSet;
     }
 
-    public @Nullable ExerciseSet getById(long id) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DBOpenHelper.EXC_SET_TABLE_NAME + " WHERE ID = ?", new String[]{String.valueOf(id)}, null);
-        ExerciseSet exerciseSet = null;
+    public ArrayList<ExerciseSet> getByProgramAndExerciseId(long programId, long exerciseId) {
+        ArrayList<ExerciseSet> exerciseSets = new ArrayList<>();
+
+        Cursor cursor = database.query(
+                DBOpenHelper.EXC_SET_TABLE_NAME,
+                columns,
+                DBOpenHelper.EXC_COLUMN_PROGRAM_ID + "=?" + " AND " + DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID + "=?",
+                new String[] {String.valueOf(programId), String.valueOf(exerciseId)},
+                null,
+                null,
+                null
+        );
 
         Log.i(TAG, "Returned " + cursor.getCount() + " rows");
-        if (cursor.moveToFirst()) {
-            int repsColumnIndex = cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_REPS);
-            int lastWeight = cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_LAST_WEIGHT);
-            exerciseSet = new ExerciseSet(cursor.getInt(repsColumnIndex), cursor.getFloat(lastWeight));
-            int sequenceColumnIndex = cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_SEQUENCE);
-            int exerciseIdColumnIndex = cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID);
-            exerciseSet.setSequence(cursor.getInt(sequenceColumnIndex));
-            exerciseSet.setExerciseId(cursor.getLong(exerciseIdColumnIndex));
+        while(cursor.moveToNext()) {
+            int sequence = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_SEQUENCE));
+            int reps = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_REPS));
+            float lastWeight = cursor.getFloat(cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_LAST_WEIGHT));
+            long program_Id = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.EXC_COLUMN_PROGRAM_ID));
+            long exercise_Id = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.EXC_SET_COLUMN_EXERCISE_ID));
+
+            ExerciseSet exerciseSet = new ExerciseSet(reps, lastWeight);
+            exerciseSet.setSequence(sequence);
+            exerciseSet.setExerciseId(exercise_Id);
+            exerciseSet.setProgramId(program_Id);
+
+            exerciseSets.add(exerciseSet);
         }
 
-        return exerciseSet;
+        return exerciseSets;
     }
 }

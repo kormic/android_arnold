@@ -55,7 +55,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                                                     + EXC_COLUMN_NAME + " TEXT NOT NULL,"
                                                     + EXC_COLUMN_MUSCLE_GROUP + " TEXT NOT NULL,"
                                                     + EXC_COLUMN_IMG_URL + " TEXT,"
-                                                    + EXC_COLUMN_PROGRAM_ID + " INTEGER NOT NULL,"
+                                                    + EXC_COLUMN_PROGRAM_ID + " INTEGER,"
                                                     + " FOREIGN KEY("
                                                     + EXC_COLUMN_PROGRAM_ID
                                                     + ") REFERENCES " + PROGRAM_TABLE_NAME + "(" + PROGRAM_COLUMN_ID +")"
@@ -83,6 +83,18 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                                                         + ") REFERENCES " + PROGRAM_TABLE_NAME + "(" + PROGRESS_COLUMN_ID +")"
                                                         + ")";
 
+    //AVAILABLE EXERCISES
+    public static final String AVAILABLE_EXC_TABLE_NAME = "AvailableExcercises";
+    public static final String AVAILABLE_EXC_COLUMN_ID = "AvailableExerciseId";
+    public static final String AVAILABLE_EXC_COLUMN_NAME = "Name";
+    public static final String AVAILABLE_EXC_COLUMN_MUSCLE_GROUP = "Muscle_Group";
+    public static final String CREATE_AVAILABLE_EXC_TABLE = "CREATE TABLE IF NOT EXISTS "
+                                                        + AVAILABLE_EXC_TABLE_NAME + " ("
+                                                        + AVAILABLE_EXC_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                                        + AVAILABLE_EXC_COLUMN_NAME + " TEXT NOT NULL, "
+                                                        + AVAILABLE_EXC_COLUMN_MUSCLE_GROUP + " TEXT NOT NULL)";
+
+
     public DBOpenHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -93,6 +105,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE_PROGRESS);
         sqLiteDatabase.execSQL(CREATE_TABLE_EXC);
         sqLiteDatabase.execSQL(CREATE_TABLE_EXC_SET);
+        sqLiteDatabase.execSQL(CREATE_AVAILABLE_EXC_TABLE);
+
+        addAvailableExercises(sqLiteDatabase);
     }
 
     @Override
@@ -101,6 +116,18 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PROGRAM_TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + EXC_TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + EXC_SET_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AVAILABLE_EXC_TABLE_NAME);
         onCreate(sqLiteDatabase);
+    }
+
+    private void addAvailableExercises(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("INSERT INTO " + AVAILABLE_EXC_TABLE_NAME + " ("
+                + AVAILABLE_EXC_COLUMN_NAME + ", " + AVAILABLE_EXC_COLUMN_MUSCLE_GROUP + ")" + " VALUES('CHEST PRESS', 'CHEST')");
+        sqLiteDatabase.execSQL("INSERT INTO " + AVAILABLE_EXC_TABLE_NAME + " ("
+                + AVAILABLE_EXC_COLUMN_NAME + ", " + AVAILABLE_EXC_COLUMN_MUSCLE_GROUP + ")" + " VALUES('PECK DECK', 'CHEST')");
+        sqLiteDatabase.execSQL("INSERT INTO " + AVAILABLE_EXC_TABLE_NAME + " ("
+                + AVAILABLE_EXC_COLUMN_NAME + ", " + AVAILABLE_EXC_COLUMN_MUSCLE_GROUP + ")" + " VALUES('SQUATS', 'LEGS')");
+        sqLiteDatabase.execSQL("INSERT INTO " + AVAILABLE_EXC_TABLE_NAME + " ("
+                + AVAILABLE_EXC_COLUMN_NAME + ", " + AVAILABLE_EXC_COLUMN_MUSCLE_GROUP + ")" + " VALUES('BICEPS CURL', 'BICEPS')");
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import gr.komic.arnold.Models.Exercise;
 import gr.komic.arnold.R;
+import gr.komic.arnold.Services.ExerciseDBDataSource;
 
 public class SpinnersHelper {
 
@@ -46,19 +47,6 @@ public class SpinnersHelper {
             workoutsPerWeekValues[i] = i + 1;
         }
         return workoutsPerWeekValues;
-    }
-
-    public static ArrayList<Exercise> getMockExercises(String group) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-
-        Exercise exercise1 = new Exercise("Chest Press");
-        Exercise exercise2 = new Exercise("Peck Deck");
-        exercise1.setId(1);
-        exercise2.setId(2);
-        exercises.add(exercise1);
-        exercises.add(exercise2);
-
-        return exercises;
     }
 
     public static Integer[] getNoOfSets() {

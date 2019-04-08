@@ -19,20 +19,22 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import gr.komic.arnold.Models.AvailableExercise;
 import gr.komic.arnold.Models.Exercise;
 
 import gr.komic.arnold.R;
-import gr.komic.arnold.helpers.SpinnersHelper;
+import gr.komic.arnold.Services.AvailableExercisesDBDataSource;
 
 public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "MuscleGroupFragment";
 
+    private AvailableExercisesDBDataSource availableExercisesDBDataSource;
     LinearLayout containerLayout;
     Spinner exerciseSpinner;
     TextView titleTextView;
     Button addExerciseButton;
     Button storeExercisesButton;
-    ArrayList<Exercise> exercises = new ArrayList<>();
+    ArrayList<AvailableExercise> availableExercisesSelected = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -46,6 +48,8 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        availableExercisesDBDataSource = new AvailableExercisesDBDataSource(getActivity());
+        availableExercisesDBDataSource.open();
         View view = inflater.inflate(R.layout.fragment_muscle_group, container, false);
         setupViews(view);
         addOnClickListeners(view);
@@ -69,6 +73,7 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        availableExercisesDBDataSource.close();
     }
 
     private void setupViews(View view) {
@@ -96,25 +101,28 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private void setupExerciseSpinner() {
-        ArrayAdapter<Exercise> exerciseSpinnerAdapter = new ArrayAdapter<Exercise>(getActivity(), R.layout.spinner_text_center, SpinnersHelper.getMockExercises(getArguments().getString("group")));
+        ArrayList<AvailableExercise> availableExercises = new ArrayList<>();
+        availableExercises = availableExercisesDBDataSource.findAllByGroup(getArguments().getString("group").toUpperCase());
+
+        ArrayAdapter<AvailableExercise> exerciseSpinnerAdapter = new ArrayAdapter<AvailableExercise>(getActivity(), R.layout.spinner_text_center, availableExercises);
         exerciseSpinner.setAdapter(exerciseSpinnerAdapter);
         exerciseSpinner.setOnItemSelectedListener(this);
     }
 
     public void addExercise() {
-        Exercise selectedExercise = (Exercise) exerciseSpinner.getSelectedItem();
-        Boolean added = exerciseHasBeenAdded(selectedExercise);
+        AvailableExercise availableExercise = (AvailableExercise) exerciseSpinner.getSelectedItem();
+        Boolean added = exerciseHasBeenAdded(availableExercise);
 
         if (!added) {
             LinearLayout exerciseContainer = new LinearLayout(getActivity());
-            exerciseContainer.setId((int) selectedExercise.getId());
+            exerciseContainer.setId((int) availableExercise.getId());
             exerciseContainer.setOrientation(LinearLayout.HORIZONTAL);
             exerciseContainer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             exerciseContainer.setWeightSum(3);
 
             TextView textView = new TextView(getActivity());
-            textView.setText(selectedExercise.toString());
-            textView.setTag(selectedExercise.toString() + "_exercise_container");
+            textView.setText(availableExercise.toString());
+            textView.setTag(availableExercise.toString() + "_exercise_container");
             textView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 2));
             textView.setTextSize(20);
             textView.setGravity(Gravity.CENTER_VERTICAL);
@@ -132,10 +140,8 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
             DialogFragment dialog = new SetsDialogFragment();
 
             Bundle bundle = new Bundle();
-            Exercise exercise = (Exercise) exerciseSpinner.getSelectedItem();
-            exercise.setMuscleGroup(getArguments().getString("group").toUpperCase());
-            exercises.add(exercise);
-            bundle.putLong("exerciseId", exercise.getId());
+            availableExercisesSelected.add(availableExercise);
+            bundle.putLong("exerciseId", availableExercise.getId());
 
             dialog.setArguments(bundle);
             dialog.show(getFragmentManager(), "SetsDialog");
@@ -143,12 +149,12 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
 
     }
 
-    private boolean exerciseHasBeenAdded(Exercise selectedExercise) {
-        return exercises.contains(selectedExercise);
+    private boolean exerciseHasBeenAdded(AvailableExercise selectedAvailableExercise) {
+        return availableExercisesSelected.contains(selectedAvailableExercise);
     }
 
     public void storeExercises() {
-        mListener.onMuscleGroupInteraction(exercises);
+        mListener.onMuscleGroupInteraction(availableExercisesSelected);
         getActivity().getSupportFragmentManager().popBackStackImmediate();
     }
 
@@ -163,7 +169,7 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
     }
 
     public interface OnFragmentInteractionListener {
-        void onMuscleGroupInteraction(ArrayList<Exercise> exercises);
+        void onMuscleGroupInteraction(ArrayList<AvailableExercise> exercises);
     }
 
 //    @Override
