@@ -34,6 +34,7 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
     TextView titleTextView;
     Button addExerciseButton;
     Button storeExercisesButton;
+    Button cancelStoreExercisesButton;
     ArrayList<AvailableExercise> availableExercisesSelected = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
@@ -83,6 +84,8 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
         titleTextView.setText(getArguments().getString("group").toUpperCase());
         addExerciseButton = view.findViewById(R.id.close_fragment);
         storeExercisesButton = view.findViewById(R.id.store_exercises_button);
+        storeExercisesButton.setEnabled(false);
+        cancelStoreExercisesButton = view.findViewById(R.id.cancel_store_exercises_button);
     }
 
     private void addOnClickListeners(View view) {
@@ -98,6 +101,13 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
                 storeExercises();
             }
         });
+        cancelStoreExercisesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStackImmediate();
+            }
+        });
+
     }
 
     private void setupExerciseSpinner() {
@@ -145,6 +155,10 @@ public class MuscleGroupFragment extends Fragment implements AdapterView.OnItemS
 
             dialog.setArguments(bundle);
             dialog.show(getFragmentManager(), "SetsDialog");
+
+            if (availableExercisesSelected.size() > 0) {
+                storeExercisesButton.setEnabled(true);
+            }
         }
 
     }

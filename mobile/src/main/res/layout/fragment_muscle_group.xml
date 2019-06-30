@@ -73,4 +73,12 @@
         android:textColor="@color/colorWhite"
         android:layout_marginTop="5sp"
         android:text="Store exercises" />
+
+    <Button
+        android:id="@+id/cancel_store_exercises_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="5sp"
+        android:text="Cancel" />
 </LinearLayout>
