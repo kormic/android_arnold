@@ -26,6 +26,7 @@ public class ProgramCreationFragment extends Fragment {
     CardView triceps;
     Button storeProgramButton;
     ArrayList<Program> programs = new ArrayList<Program>();
+    public Boolean addingExercises = false;
 
     private OnFragmentInteractionListener mListener;
 
@@ -59,7 +60,7 @@ public class ProgramCreationFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void onProgramCreate(Program program);
+        void onProgramCreate();
     }
 
     private void setupButtons(View view) {
@@ -116,16 +117,13 @@ public class ProgramCreationFragment extends Fragment {
         this.storeProgramButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Program program = new Program();
-                program.setTitle("First test program");
-                program.setIsCurrentProgram(false);
-                program.setCreatedAt(new Date());
-                mListener.onProgramCreate(program);
+                mListener.onProgramCreate();
             }
         });
     }
 
     private void openMuscleGroupFragment(String group) {
+        addingExercises = true;
         Bundle bundle = new Bundle();
         bundle.putString("group", group);
         Fragment muscleGroupFragment = new MuscleGroupFragment();

@@ -2,12 +2,15 @@ package gr.komic.arnold;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import gr.komic.arnold.Adapters.ViewPagerAdapter;
 import gr.komic.arnold.Fragments.MuscleGroupFragment;
@@ -42,6 +45,7 @@ public class MyProgramActivity extends AppCompatActivity implements
     ArrayList<AvailableExercise> selectedAvailableExcercises = new ArrayList<>();
     ArrayList<ExerciseSet> selectedExerciseSets = new ArrayList<>();
     ArrayList<Program> pastPrograms = new ArrayList<>();
+    PastProgramsFragment pastProgramsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,45 +108,76 @@ public class MyProgramActivity extends AppCompatActivity implements
     }
 
     public void setupViewPager(ViewPager vp) {
-        ViewPagerAdapter vpa = new ViewPagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter vpa = new ViewPagerAdapter(getSupportFragmentManager());
         vpa.addFragment(new MyProgramFragment(), "Current");
         vpa.addFragment(new ProgramCreationFragment(), "New");
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("pastPrograms", pastPrograms);
-        PastProgramsFragment pastProgramsFragment = new PastProgramsFragment();
+        pastProgramsFragment = new PastProgramsFragment();
         pastProgramsFragment.setArguments(bundle);
         vpa.addFragment(pastProgramsFragment, "Past");
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment fr = vpa.getItem(position);
+                if(!fr.getClass().equals(ProgramCreationFragment.class)) {
+                    ProgramCreationFragment programCreationFragment = (ProgramCreationFragment) vpa.getItem(1);
+
+                    if (programCreationFragment.addingExercises) {
+                        programCreationFragment.getActivity().getSupportFragmentManager().popBackStackImmediate();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         vp.setAdapter(vpa);
     }
 
     @Override
-    public void onProgramCreate(Program program) {
-        Program insertedProgram = programDBDataSource.insert(program);
+    public void onProgramCreate() {
+        if (selectedAvailableExcercises.size() > 0) {
+            Program program = new Program();
+            program.setTitle("First test program");
+            program.setIsCurrentProgram(false);
+            program.setCreatedAt(new Date());
 
-        for (AvailableExercise availableExercise: selectedAvailableExcercises) {
-            Exercise exercise = new Exercise(availableExercise.getName());
-            exercise.setMuscleGroup(availableExercise.getMuscleGroup());
-            exercise.setProgramId(insertedProgram.getId());
-            exercise = exerciseDBDataSource.insert(exercise);
+            Program insertedProgram = programDBDataSource.insert(program);
 
-            for (ExerciseSet exerciseSet: selectedExerciseSets) {
-                if (availableExercise.getId() == exerciseSet.getExerciseId()) {
-                    exerciseSet.setExerciseId(exercise.getId());
-                    Log.d(TAG, "Exercise Muscle Group: " + exercise.getMuscleGroup());
-                    exercise.addExerciseSet(exerciseSet);
+            for (AvailableExercise availableExercise: selectedAvailableExcercises) {
+                Exercise exercise = new Exercise(availableExercise.getName());
+                exercise.setMuscleGroup(availableExercise.getMuscleGroup());
+                exercise.setProgramId(insertedProgram.getId());
+                exercise = exerciseDBDataSource.insert(exercise);
+
+                for (ExerciseSet exerciseSet: selectedExerciseSets) {
+                    if (availableExercise.getId() == exerciseSet.getExerciseId()) {
+                        exerciseSet.setExerciseId(exercise.getId());
+                        Log.d(TAG, "Exercise Muscle Group: " + exercise.getMuscleGroup());
+                        exercise.addExerciseSet(exerciseSet);
+                    }
                 }
+                insertedProgram.addExerciseToProgram(exercise);
             }
-            insertedProgram.addExerciseToProgram(exercise);
+
+            for(ExerciseSet exerciseSet: selectedExerciseSets) { ;
+                exerciseSet.setProgramId(insertedProgram.getId());
+                exerciseSetDBDataSource.insert(exerciseSet);
+            }
+
+            selectedProgram = insertedProgram;
+            pastProgramsFragment.updatePastPrograms(programDBDataSource.findAll());
+        } else {
+            Toast.makeText(this, "No exercises selected", Toast.LENGTH_SHORT).show();
         }
-
-
-        for(ExerciseSet exerciseSet: selectedExerciseSets) { ;
-            exerciseSet.setProgramId(insertedProgram.getId());
-            exerciseSetDBDataSource.insert(exerciseSet);
-        }
-
-        selectedProgram = insertedProgram;
     }
 
     @Override

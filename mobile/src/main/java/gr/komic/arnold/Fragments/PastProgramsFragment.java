@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ import gr.komic.arnold.R;
 public class PastProgramsFragment extends Fragment {
 
     private OnPastProgramsInteractionListener mListener;
+    ArrayList<Program> pastPrograms;
+    TextView tmpTextView;
 
     public PastProgramsFragment() {
         // Required empty public constructor
@@ -34,9 +37,12 @@ public class PastProgramsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ArrayList<Program> pastPrograms = getArguments().getParcelableArrayList("pastPrograms");
+        pastPrograms = getArguments().getParcelableArrayList("pastPrograms");
+        View view = inflater.inflate(R.layout.fragment_past_programs, container, false);
+        tmpTextView = view.findViewById(R.id.tmp_textview);
+        tmpTextView.setText(String.valueOf(pastPrograms.size()));
 
-        return inflater.inflate(R.layout.fragment_past_programs, container, false);
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -60,6 +66,11 @@ public class PastProgramsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void updatePastPrograms(ArrayList<Program> programs) {
+        pastPrograms = programs;
+        tmpTextView.setText(String.valueOf(pastPrograms.size()));
     }
 
     public interface OnPastProgramsInteractionListener {
