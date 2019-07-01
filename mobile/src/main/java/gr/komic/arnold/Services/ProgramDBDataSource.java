@@ -50,6 +50,10 @@ public class ProgramDBDataSource {
         return program;
     }
 
+    public boolean delete(Long programId) {
+       return  database.delete(DBOpenHelper.PROGRAM_TABLE_NAME, DBOpenHelper.PROGRAM_COLUMN_ID + "=" + programId, null) > 0;
+    }
+
     public ArrayList<Program> findAll() {
         ArrayList<Program> programs = new ArrayList<>();
         Cursor cursor = database.query(DBOpenHelper.PROGRAM_TABLE_NAME, columns, null, null, null, null, null);

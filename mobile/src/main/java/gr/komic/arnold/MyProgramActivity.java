@@ -146,7 +146,7 @@ public class MyProgramActivity extends AppCompatActivity implements
     public void onProgramCreate() {
         if (selectedAvailableExcercises.size() > 0) {
             Program program = new Program();
-            program.setTitle("First test program");
+            program.setTitle("Test program");
             program.setIsCurrentProgram(false);
             program.setCreatedAt(new Date());
 
@@ -178,6 +178,10 @@ public class MyProgramActivity extends AppCompatActivity implements
         } else {
             Toast.makeText(this, "No exercises selected", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void removeProgram(Long programId) {
+        programDBDataSource.delete(programId);
     }
 
     @Override
