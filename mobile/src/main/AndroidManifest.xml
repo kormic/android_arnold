@@ -41,9 +41,6 @@
             android:theme="@style/AppMaterialTheme" />
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBNeiGUn6H2GJZu8VB-QQao9u1RBbJCH7w" />
-        <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
